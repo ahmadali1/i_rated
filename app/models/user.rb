@@ -7,4 +7,6 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { maximum: 60 }
   validates :last_name, presence: true, length: { maximum: 60 }
 
+  GENDERS = ["Male", "Female"]
+
 end
