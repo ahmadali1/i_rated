@@ -17,7 +17,7 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -37,6 +37,17 @@
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "off" %>
+  </div>
+
+  <% if resource.image %>
+    <%= image_tag show_image(resource.image) %>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Image %>
+    <%= f.fields_for :image, resource.get_image  do|image_form| %>
+      <%= image_form.file_field :image %>
+    <% end %>
   </div>
 
   <div class="actions">
