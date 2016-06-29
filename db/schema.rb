@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629102301) do
+ActiveRecord::Schema.define(version: 20160629102302) do
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",    limit: 255, null: false
@@ -51,8 +51,10 @@ ActiveRecord::Schema.define(version: 20160629102301) do
     t.string   "embedded_video", limit: 255
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.string   "genre",          limit: 30
   end
 
+  add_index "movies", ["genre"], name: "index_movies_on_genre", using: :btree
   add_index "movies", ["is_featured"], name: "index_movies_on_is_featured", using: :btree
   add_index "movies", ["name"], name: "index_movies_on_name", using: :btree
   add_index "movies", ["released_date"], name: "index_movies_on_released_date", using: :btree

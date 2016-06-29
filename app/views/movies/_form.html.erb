@@ -40,6 +40,10 @@
 
     <%= f.link_to_add "Add Posters", :images %>
   </div>
+  <div class="field">
+    <%= f.label :genre %><br />
+    <%= f.select :genre, options_for_select(collection_for_movie_genre), include_blank: 'Please Select Genre' %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
