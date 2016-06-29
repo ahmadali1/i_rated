@@ -17,7 +17,7 @@
 
 <p>
   <strong>Description:</strong>
-  <%= @movie.description %>
+  <%= raw @movie.description %>
 </p>
 
 <p>
@@ -27,7 +27,7 @@
 
 <p>
   <strong>Embedded video:</strong>
-  <%= @movie.embedded_video %>
+  <%= raw @movie.embedded_video %>
 </p>
 
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
