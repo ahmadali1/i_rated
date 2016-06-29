@@ -4,6 +4,8 @@ class Movie < ActiveRecord::Base
 
   has_many :images, as: :imageable
   accepts_nested_attributes_for :images, allow_destroy: true
+  has_many :movie_casts
+  has_many :actors, through: :movie_casts
 
   validates :name, presence: true, length: { maximum: 60 }
   validates :released_date, presence: true
