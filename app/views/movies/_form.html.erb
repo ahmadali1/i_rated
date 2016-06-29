@@ -1,4 +1,4 @@
-<%= form_for(@movie) do |f| %>
+<%= nested_form_for(@movie) do |f| %>
   <% if @movie.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
@@ -19,7 +19,6 @@
     <%= f.label :released_date %><br>
     <%= f.date_select :released_date %>
   </div>
-
   <div class="field">
     <%= f.label :description %><br>
     <%= f.cktext_area :description %>
@@ -31,6 +30,15 @@
   <div class="field">
     <%= f.label :embedded_video %><br>
     <%= f.text_field :embedded_video %>
+  </div>
+  <div>
+    <%= f.fields_for :images do |image| %>
+      <%= image_tag fetch_image image unless image.object.new_record? %>
+      <%= image.file_field :image %>
+      <%= image.link_to_remove "Remove Poster" %>
+    <% end %>
+
+    <%= f.link_to_add "Add Posters", :images %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <% @movie.images.each do |attachment| %>
+    <%= image_tag attachment.image.url(:med) %>
+  <% end %>
+</p>
+
+<p>
   <strong>Name:</strong>
   <%= @movie.name %>
 </p>
