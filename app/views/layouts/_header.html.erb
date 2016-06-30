@@ -1,6 +1,30 @@
-<% if user_signed_in? %>
-  <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-  <%= link_to 'Edit', edit_user_registration_path %>
-<% else %>
-  <%= link_to 'Login', new_user_session_path %>
-<% end %>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">I_Rated
+      </a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="<%= active_class(root_path) %>">
+        <%= link_to 'Home', root_path %>
+      </li>
+      <li class="<%= active_class(movies_path) %>">
+        <%= link_to 'Movies', movies_path %>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to raw('<span class="glyphicon glyphicon-log-in"></span> Logout'), destroy_user_session_path, method: :delete %>
+        </li>
+        <li>
+          <%= link_to raw('<span class="glyphicon glyphicon-user"></span> Edit Profile'), edit_user_registration_path %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to raw('<span class="glyphicon glyphicon-log-in"></span> Login'), new_user_session_path %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

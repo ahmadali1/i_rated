@@ -1,4 +1,5 @@
 module MoviesHelper
+
   def fetch_image(image, size= :med)
     image.image.url(size) unless image.nil?
   end
