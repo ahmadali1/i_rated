@@ -1,6 +1,6 @@
 module MoviesHelper
-  def fetch_image(image)
-    image.object.image.url(:med)
+  def fetch_image(image, size= :med)
+    image.image.url(size) unless image.nil?
   end
 
   def collection_for_movie_genre

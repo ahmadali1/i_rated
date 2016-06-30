@@ -33,7 +33,7 @@
   </div>
   <div>
     <%= f.fields_for :images do |image| %>
-      <%= image_tag fetch_image image unless image.object.new_record? %>
+      <%= image_tag fetch_image image.object, :med unless image.object.new_record? %>
       <%= image.file_field :image %>
       <%= image.link_to_remove "Remove Poster" %>
     <% end %>
@@ -43,6 +43,9 @@
   <div class="field">
     <%= f.label :genre %><br />
     <%= f.select :genre, options_for_select(collection_for_movie_genre), include_blank: 'Please Select Genre' %>
+  </div>
+  <div class="field">
+    <%= f.select :actor_ids, options_from_collection_for_select(@all_actors, 'id', 'name', @selected), {}, { multiple: true } %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -36,5 +36,9 @@
   <%= raw @movie.embedded_video %>
 </p>
 
+<p>
+  Actors: <%= @movie.all_movie_actors %>
+</p>
+
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
 <%= link_to 'Back', movies_path %>

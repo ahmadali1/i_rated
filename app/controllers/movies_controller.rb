@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
-
+  before_action :get_actors
   # GET /movies
   # GET /movies.json
   def index
@@ -19,6 +19,7 @@ class MoviesController < ApplicationController
 
   # GET /movies/1/edit
   def edit
+    @selected = @movie.actors.pluck(:id)
   end
 
   # POST /movies
@@ -61,6 +62,10 @@ class MoviesController < ApplicationController
     end
   end
 
+  def get_actors
+    @all_actors = Actor.all
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
@@ -69,7 +74,7 @@ class MoviesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
-      params.require(:movie).permit(:name, :released_date, :is_featured, :description, :duration, :embedded_video, :approved, :genre, images_attributes: [:id, :image, :_destroy])
+      params.require(:movie).permit(:name, :released_date, :is_featured, :description, :duration, :embedded_video, :genre, actor_ids: [], images_attributes: [:id, :image, :_destroy])
     end
 
 end
