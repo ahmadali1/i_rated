@@ -14,4 +14,11 @@ module ApplicationHelper
     User::GENDERS
   end
 
+  def fetch_thumbnail(image, size= :small)
+    unless image.nil?
+      return image.image.url(size)
+    end
+    image_url("noimg.png")
+  end
+
 end

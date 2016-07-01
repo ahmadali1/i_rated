@@ -3,5 +3,45 @@
 }
 
 #footer {
+  position: absolute;
   bottom: 0;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.thumbnails {
+  width: 75px;
+  height: 55px;
+}
+
+.table tbody > tr > td .vert-align {
+  vertical-align: middle;
+}
+
+.movie-font {
+  font-family: monospace;
+}
+
+.default-btn {
+  border: none;
+}
+
+.my-form-fields > .fields {
+  display: inline-block;
+}
+
+div .field select {
+  height: 120px;
+  width: 115px;
+}
+
+.form-group > .cktxt {
+  width: 100%;
 }
