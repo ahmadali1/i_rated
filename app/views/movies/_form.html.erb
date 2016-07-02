@@ -51,6 +51,12 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <div class="input-group">
+                      <div><strong><%= f.label :is_featured %></strong></div>
+                      <%= f.check_box :is_featured %>
+                  </div>
+                </div>
+                <div class="form-group">
                   <div class="input-group my-form-fields">
 
                     <%= f.fields_for :images do |image| %>
