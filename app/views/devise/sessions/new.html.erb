@@ -18,7 +18,7 @@
                     <span class="input-group-addon">
                       <i class="glyphicon glyphicon-user"></i>
                     </span>
-                    <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email Address' %>
+                    <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email Address', required: true %>
                   </div>
                 </div>
                 <div class="form-group">
@@ -26,7 +26,7 @@
                     <span class="input-group-addon">
                       <i class="glyphicon glyphicon-lock"></i>
                     </span>
-                    <%= f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'Password' %>
+                    <%= f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'Password', required: true %>
                   </div>
                 </div>
                 </br>
