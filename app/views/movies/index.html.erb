@@ -49,6 +49,7 @@
               <% end %>
             </tbody>
           </table>
+          <%= paginate @movies %>
         </div>
         <%= link_to 'Create New Movie', new_movie_path, class: 'btn btn-info btn-block' %>
       </div>

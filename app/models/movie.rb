@@ -1,5 +1,6 @@
 class Movie < ActiveRecord::Base
 
+  paginates_per 10
   GENRE = ["Action", "Horror", "Romance", "Documentary", "Biography", "Comedy", "Crime", "Drama", "Romance", "War"]
 
   has_many :images, as: :imageable
