@@ -1,2 +1,43 @@
-<h1>Welcome <%= current_user.first_name %></h1>
-
+<div class="row background-banner">
+  <div class="col-md-2 col-md-offset-5">
+    <%= image_tag 'logo.png'%>
+    <h1><em>I Rated</em><h1>
+  </div>
+</div>
+<div class="clearfix clearfix-margin-10"></div>
+  <h3><strong>Top Movies</strong></h3>
+  <%= link_to 'Browse More', {}, class: 'btn btn-default pull-right' %>
+<hr>
+<div class="clearfix-margin-5"></div>
+  <h3><strong>Latest Movies</strong></h3>
+  <%= link_to 'Browse More', movies_path(latest: true), class: 'btn btn-default pull-right' %>
+  <hr class="clearfix-margin-5">
+  <% @latest_movies.each do |movie| %>
+    <div class="col-md-3 thumbnail">
+      <%= link_to movie_path(movie) do %>
+        <%= image_tag fetch_thumbnail(movie.images.first, :large), class: 'img-responsive' %>
+      <% end %>
+      <p class="text-center movie-font">
+        <strong><%= movie.name %></strong>
+      </p>
+      <p class="text-center movie-font">Released Date :<%= movie.released_date %></p>
+    </div>
+  <% end %>
+<div>
+<hr>
+<div class="clearfix-margin-5"></div>
+  <h3><strong>Featured Movies</strong></h3>
+  <%= link_to 'Browse More', movies_path(featured: true), class: 'btn btn-default pull-right' %>
+  <hr class="clearfix-margin-5">
+  <% @featured_movies.each do |movie| %>
+    <div class="col-md-3 thumbnail">
+      <%= link_to movie_path(movie) do %>
+        <%= image_tag fetch_thumbnail(movie.images.first, :large), class: 'img-responsive' %>
+      <% end %>
+      <p class="text-center movie-font">
+        <strong><%= movie.name %></strong>
+      </p>
+      <p class="text-center movie-font">Released Date :<%= movie.released_date %></p>
+    </div>
+  <% end %>
+<div>

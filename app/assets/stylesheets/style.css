@@ -14,6 +14,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  background: radial-gradient(white, rgba(199, 199, 199, 0.431373));
 }
 
 .thumbnails {
@@ -44,4 +45,24 @@ div .field select {
 
 .form-group > .cktxt {
   width: 100%;
+}
+
+.background-banner {
+  background-image: url('background.jpg')
+}
+
+.clearfix-margin-10 {
+  margin-bottom: 10%;
+}
+
+.clearfix-margin-5 {
+  margin-bottom: 5%;
+}
+
+.pagination {
+  margin-left: 37%;
+}
+
+hr {
+  border-color: gray;
 }
