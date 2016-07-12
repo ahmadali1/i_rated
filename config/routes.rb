@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :ratings
   mount Ckeditor::Engine => '/ckeditor'
   resources :movies
   root 'pages#home'
