@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :ratings
   mount Ckeditor::Engine => '/ckeditor'
-  resources :movies
+  resources :movies do
+    resources :ratings
+  end
   root 'pages#home'
 
   devise_for :users

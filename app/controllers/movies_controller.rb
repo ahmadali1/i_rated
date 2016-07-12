@@ -11,6 +11,8 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
+    @rating = @movie.ratings.build
+    @ratings = @movie.ratings.all
   end
 
   # GET /movies/new

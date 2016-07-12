@@ -1,6 +1,7 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_movie
+  before_action :authenticate_user!, only: [:create, :edit, :destroy]
   # GET /ratings
   # GET /ratings.json
   def index
@@ -24,15 +25,17 @@ class RatingsController < ApplicationController
   # POST /ratings
   # POST /ratings.json
   def create
-    @rating = Rating.new(rating_params)
+    @rating = @movie.ratings.create(rating_params)
+    @rating.user_id = current_user.id
 
     respond_to do |format|
       if @rating.save
-        format.html { redirect_to @rating, notice: 'Rating was successfully created.' }
-        format.json { render :show, status: :created, location: @rating }
+        format.html { redirect_to @movie, notice: 'Rating was successfully created.' }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @rating.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -67,8 +70,12 @@ class RatingsController < ApplicationController
       @rating = Rating.find(params[:id])
     end
 
+    def set_movie
+      @movie = Movie.find(params[:movie_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def rating_params
-      params.require(:rating).permit(:score, :user_id, :movie_id)
+      params.require(:rating).permit(:score)
     end
 end

@@ -1,0 +1,10 @@
+<td>
+	<strong><%= rating.user.first_name %></strong><div id=<%= rating.id %> ></div>
+</td>
+<script>
+  $('#<%= rating.id %>').raty({
+    readOnly: true,
+    score: <%= rating.score %>,
+    path: '/assets'
+  });
+  </script>

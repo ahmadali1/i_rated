@@ -10,6 +10,19 @@
         <tbody>
           <tr>
             <td>
+              <strong>Ratings:</strong>
+            </td>
+            <td>
+              <%= render 'ratings/form' %>
+            </td>
+          </tr>
+          <tr>
+
+            <%= render partial: "rating", collection: @ratings %>
+
+          </tr>
+          <tr>
+            <td>
               <strong>Genre:</strong>
             </td>
             <td>
