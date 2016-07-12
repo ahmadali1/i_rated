@@ -9,12 +9,6 @@
           <div class="clearfix"></div>
           <table class="table table-striped table-hover">
             <thead class="thead-default">
-              <tr>
-                <th></th>
-                <th colspan="2">Name</th>
-                <th>Released date</th>
-                <th colspan="2">Ratings</th>
-              </tr>
             </thead>
 
             <tbody>
@@ -22,28 +16,39 @@
               <% @movies.each do |movie| %>
                 <tr>
                   <td>
-                    <div>
-
+                    <div class="row">
+                    <div class="col-md-3">
                       <%= link_to movie_path(movie) do %>
-                        <%= image_tag fetch_thumbnail(movie.images.first, :small), class: 'img-responsive img-thumbnail thumbnails' %>
+                        <%= image_tag fetch_thumbnail(movie.images.first, :med), style: 
+                        'box-shadow: 10px 5px 6px #888888; max-height: 100%; max-width: 100%' %>
                       <% end %>
-                    </div>
-                  </td>
-                  <td class="vert-align" colspan="2">
-                    <strong class="movie-font">
-
-                      <%= link_to movie_path(movie), class: 'btn btn-default default-btn' do %>
+                      </div>
+                      <div class="col-md-7">
+                        <%= link_to movie_path(movie) do %>
+                        <h2 class="movie-font">
                         <%= movie.name %>
-                      <% end %>
-                    </strong>
-                  </td>
-                  <td class="vert-align"><%= movie.released_date %></td>
-                  <td class="vert-align" colspan="2">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                        <small>
+                        (<%= movie.released_date %>)</small>
+                        </h2>
+                        <% end %>
+
+                        <div>
+                          <h4 class="movie-font" style="display: inline">iRatings : </h4>
+                          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                          <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+
+                        </div>
+                        <div style="margin-top: 5%" id="storyline">
+                          <h5 class="movie-font" style="display: inline">Storyline : </h5>
+                          <%= sanitize movie.description.to_s.slice(0..300)<<" ....." %> 
+
+
+                        </div>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               <% end %>

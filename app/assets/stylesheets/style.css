@@ -27,7 +27,8 @@ body {
 }
 
 .movie-font {
-  font-family: monospace;
+  color: rgba(0, 0, 0, 0.75);
+  font-family: initial;
 }
 
 .default-btn {
@@ -65,4 +66,9 @@ div .field select {
 
 hr {
   border-color: gray;
+}
+
+#storyline > p {
+  all: inherit;
+  display: inline;
 }
