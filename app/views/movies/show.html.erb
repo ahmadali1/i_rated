@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"><%= render 'layouts/flash_messages' %></p>
 <div id="my-container">
   <div class="row">
     <div class="col-md-4">
@@ -63,8 +63,19 @@
       <%= raw @movie.embedded_video %>
     </div>
   </div>
-  <div class="row">
-    <%= link_to 'Back', movies_path, class: 'btn btn-default btn-sm' %>|
-    <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-default btn-sm' %>
+  <div class="col-md-12">
+    <h2>Reviews</h2>
+    <h3>Write a review</h3>
+    <div class="review_alerts hidden">
+      <%= render 'layouts/flash_messages' %>
+    </div>
+    <%= render partial: 'reviews/form', locals: { remote_form: true } %>
+    <div id='reviews'>
+      <%= render partial: 'review', collection: @reviews, as: :review %>
+    </div>
+  </div>
+  <div class="row pull-right">
+    <%= link_to 'Back to movies', movies_path, class: 'btn btn-default btn-sm' %>
+    <%= link_to 'Edit this movie', edit_movie_path(@movie), class: 'btn btn-default btn-sm' %>
   </div>
 </div>

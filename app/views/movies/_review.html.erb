@@ -1,0 +1,8 @@
+<hr>
+<h4><strong><%= review.get_username %></strong></h4>
+<h5><%= review.comment %></h5>
+<p><%= render_time review.created_at %></p>
+<% if review.user == current_user %>
+  <%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-default btn-sm' %>
+  <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+<% end %>

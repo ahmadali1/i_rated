@@ -9,6 +9,7 @@ class Movie < ActiveRecord::Base
   accepts_nested_attributes_for :images, allow_destroy: true
   has_many :movie_casts
   has_many :actors, through: :movie_casts
+  has_many :reviews, dependent: :destroy
 
   scope :latest, -> { order(released_date: :desc) }
   scope :featured, -> { where(is_featured: true) }

@@ -66,3 +66,7 @@ div .field select {
 hr {
   border-color: gray;
 }
+
+#reviews {
+  overflow-wrap: break-word;
+}

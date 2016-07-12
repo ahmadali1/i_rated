@@ -1,0 +1,6 @@
+<% unless @review.id.nil? %>
+  $('#reviews').prepend("<%= escape_javascript render('movies/review', review: @review) %>");
+  $('.review_text_area').val('');
+<% end %>
+$('.review_alerts').removeClass('hidden');
+$('.review_alerts').html("<%= escape_javascript render('layouts/flash_messages') %>");

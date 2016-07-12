@@ -21,4 +21,17 @@ module ApplicationHelper
     image_url("noimg.png")
   end
 
+  def alert_class_for(flash_type)
+  {
+     :success => 'alert-success',
+     :error => 'alert-danger',
+     :alert => 'alert-warning',
+     :notice => 'alert-info'
+     }[flash_type.to_sym] || flash_type.to_s
+  end
+
+  def render_time(datetime)
+    datetime.strftime("%m-%e-%y %H:%M")
+  end
+
 end

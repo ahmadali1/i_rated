@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_one :image, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :image
+  has_many :reviews, dependent: :destroy
 
   validates :first_name, presence: true, length: { maximum: 60 }
   validates :last_name, presence: true, length: { maximum: 60 }
