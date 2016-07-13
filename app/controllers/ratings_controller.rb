@@ -25,7 +25,7 @@ class RatingsController < ApplicationController
   # POST /ratings
   # POST /ratings.json
   def create
-    @rating = @movie.ratings.create(rating_params)
+    @rating = @movie.ratings.create(score: params[:score])
     @rating.user_id = current_user.id
 
     respond_to do |format|
@@ -43,13 +43,16 @@ class RatingsController < ApplicationController
   # PATCH/PUT /ratings/1
   # PATCH/PUT /ratings/1.json
   def update
+    p 123
+    p params[:score]
+    p 123
     respond_to do |format|
-      if @rating.update(rating_params)
-        format.html { redirect_to @rating, notice: 'Rating was successfully updated.' }
-        format.json { render :show, status: :ok, location: @rating }
+      if @rating.update_attribute(:score,params[:score])
+        p 111
+        format.js
       else
-        format.html { render :edit }
-        format.json { render json: @rating.errors, status: :unprocessable_entity }
+        p 222
+        format.js
       end
     end
   end

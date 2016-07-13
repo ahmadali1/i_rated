@@ -13,7 +13,11 @@
               <strong>Ratings:</strong>
             </td>
             <td>
-              <%= render 'ratings/form' %>
+            <% if @movie.ratings.where(user_id: current_user.id).present? %>
+              <div id="user_star"></div>
+              <% else %>
+                <h2>no raitng</h2>
+              <% end %>
             </td>
           </tr>
           <tr>
@@ -81,3 +85,28 @@
     <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-default btn-sm' %>
   </div>
 </div>
+<script type="text/javascript">
+  $('#user_star').raty({
+  score: <%= @movie.ratings.where(user_id: current_user.id).first.score %>,
+  path: '/assets',
+  click: function(score, evt) {
+    $.ajax({
+      url: '/movies/'+<%= @movie.id %> + '/ratings/' + <%= @movie.ratings.first.id %> ,
+      type: 'PATCH',
+      data: { score: score }
+    }).done(function (data){});
+  }
+}); 
+$('#user_starr').raty({
+  //score: <%= @movie.ratings.where(user_id: current_user.id).first.score %>,
+  score: 3,
+  path: '/assets',
+  click: function(score, evt) {
+    $.ajax({
+      url: '/movies/'+<%= @movie.id %> + '/ratings' ,
+      type: 'POST',
+      data: { score: score }
+    }).done(function (data){});
+  }
+}); 
+</script>

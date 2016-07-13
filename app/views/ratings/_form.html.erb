@@ -11,6 +11,9 @@
     </div>
   <% end %>
 
+  <p>Your rating</p>
+<div id="user_star"></div>
+
   <div class="field">
     <%= f.label :score %><br>
     <%= f.number_field :score %>
@@ -19,3 +22,17 @@
     <%= f.submit %>
   </div>
 <% end %>
+<script type="text/javascript">
+  $('#user_star').raty({
+  score: <%= Rating.last.score %>,
+  path: '/assets',
+  click: function(score, evt) {
+    $.ajax({
+      url: '/movies/'+<%= @movie.id %> + '/ratings/' + <%= Rating.last.id %> ,
+      type: 'PATCH',
+      data: { score: score }
+    }).done(function (data){});
+  }
+}); 
+
+</script>
