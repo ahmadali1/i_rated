@@ -1,5 +1,5 @@
 <div class="row background-banner">
-  <div class="col-md-2 col-md-offset-5">
+  <div class="col-md-2 col-md-offset-5 col-sm-offset-5 col-xs-offset-3">
     <%= image_tag 'logo.png'%>
     <h1><em>I Rated</em><h1>
   </div>
@@ -24,8 +24,8 @@
     </div>
   <% end %>
 <div>
-<hr>
-<div class="clearfix-margin-5"></div>
+  <hr>
+  <div class="clearfix-margin-5"></div>
   <h3><strong>Featured Movies</strong></h3>
   <%= link_to 'Browse More', movies_path(featured: true), class: 'btn btn-default pull-right' %>
   <hr class="clearfix-margin-5">

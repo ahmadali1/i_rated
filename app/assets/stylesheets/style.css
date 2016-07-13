@@ -31,6 +31,10 @@ body {
   font-family: initial;
 }
 
+.block-inline {
+  display: inline;
+}
+
 .default-btn {
   border: none;
 }
@@ -71,4 +75,11 @@ hr {
 #storyline > p {
   all: inherit;
   display: inline;
+  margin-top: 5%;
+}
+
+.index-images {
+  box-shadow: 10px 5px 6px #888888;
+  max-height: 100%;
+  max-width: 100%;
 }

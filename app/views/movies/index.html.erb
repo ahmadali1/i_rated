@@ -17,23 +17,23 @@
                 <tr>
                   <td>
                     <div class="row">
-                    <div class="col-md-3">
-                      <%= link_to movie_path(movie) do %>
-                        <%= image_tag fetch_thumbnail(movie.images.first, :med), style: 
-                        'box-shadow: 10px 5px 6px #888888; max-height: 100%; max-width: 100%' %>
-                      <% end %>
-                      </div>
-                      <div class="col-md-7">
+                      <div class="col-md-3">
                         <%= link_to movie_path(movie) do %>
-                        <h2 class="movie-font">
-                        <%= movie.name %>
-                        <small>
-                        (<%= movie.released_date %>)</small>
-                        </h2>
+                          <%= image_tag fetch_thumbnail(movie.images.first, :med), class: 'index-images' %>
                         <% end %>
-
-                        <div>
-                          <h4 class="movie-font" style="display: inline">iRatings : </h4>
+                        </div>
+                      <div class="col-md-7">
+                        <div class="clearfix-margin-5">
+                          <%= link_to movie_path(movie) do %>
+                          <h2 class="movie-font block-inline">
+                          <%= movie.name %>
+                          <small>
+                          (<%= movie.released_date %>)</small>
+                          </h2>
+                          <% end %>
+                        </div>
+                        <div class="clearfix-margin-5">
+                          <h4 class="movie-font block-inline">iRatings : </h4>
                           <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                           <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                           <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -41,13 +41,14 @@
                           <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
 
                         </div>
-                        <div style="margin-top: 5%" id="storyline">
-                          <h5 class="movie-font" style="display: inline">Storyline : </h5>
+                        <div id="storyline">
+                          <h5 class="movie-font block-inline">Storyline : </h5>
                           <%= sanitize movie.description.to_s.slice(0..300)<<" ....." %> 
 
 
                         </div>
                       </div>
+                      <div class="col-md-2"></div>
                     </div>
                   </td>
                 </tr>
