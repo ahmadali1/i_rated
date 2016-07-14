@@ -35,6 +35,7 @@ gem 'ckeditor'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'kaminari'
 gem 'activeadmin', '~> 1.0.0.pre4'
+gem 'country_select'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
