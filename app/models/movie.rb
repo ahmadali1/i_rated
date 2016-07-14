@@ -10,6 +10,7 @@ class Movie < ActiveRecord::Base
   has_many :movie_casts
   has_many :actors, through: :movie_casts
   has_many :reviews, dependent: :destroy
+  has_many :ratings, dependent: :destroy
 
   scope :latest, -> { order(released_date: :desc) }
   scope :featured, -> { where(is_featured: true) }
@@ -35,6 +36,18 @@ class Movie < ActiveRecord::Base
     return self.featured if movie_params[:featured].present?
     return self.latest if movie_params[:latest].present?
     return self.all
+  end
+
+  def movie_ratings(user)
+    self.ratings.where(user: user).first if user.present?
+  end
+
+  def available_ratings?(user)
+    self.ratings.where(user: user).exists? if user.present?
+  end
+
+  def average_rating
+    self.ratings.exists ? (self.ratings.average(:score)) : 0
   end
 
 end

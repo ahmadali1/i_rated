@@ -13,6 +13,7 @@ class MoviesController < ApplicationController
   def show
     @reviews = @movie.reviews.includes(:user).latest
     @review = @movie.reviews.build
+    @user_movie_rating = @movie.movie_ratings(current_user)
   end
 
   # GET /movies/new

@@ -14,5 +14,11 @@
   <%= render 'layouts/footer' %>
 </div>
 
+<script type="text/javascript">
+  $(function() {
+    <%= yield :js_init %>
+  });
+</script>
+
 </body>
 </html>

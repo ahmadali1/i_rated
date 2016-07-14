@@ -1,52 +1,34 @@
 class RatingsController < ApplicationController
 
-  before_action :set_rating, only: [:show, :edit, :update, :destroy]
-
-  def index
-    @ratings = Rating.all
-  end
-
-  def show
-  end
-
-  def new
-    @rating = Rating.new
-  end
-
-  def edit
-  end
+  before_action :set_rating, only: [:update]
+  before_action :set_movie, only: [:create, :update]
+  before_action :authenticate_user!, only: [:create, :update]
 
   def create
-    @rating = Rating.new(rating_params)
+    @rating = @movie.ratings.create(score: rating_params[:score], user: current_user)
 
     respond_to do |format|
       if @rating.save
-        format.html { redirect_to @rating, notice: 'Rating was successfully created.' }
-        format.json { render :show, status: :created, location: @rating }
+        set_user_ratings
+        flash.now[:success] = "Rating successfully created"
+        format.js
       else
-        format.html { render :new }
-        format.json { render json: @rating.errors, status: :unprocessable_entity }
+        flash.now[:error] = @ratings.errors
+        format.js
       end
     end
   end
 
   def update
     respond_to do |format|
-      if @rating.update(rating_params)
-        format.html { redirect_to @rating, notice: 'Rating was successfully updated.' }
-        format.json { render :show, status: :ok, location: @rating }
+      if @rating.update_attribute(:score, rating_params[:score])
+        set_user_ratings
+        flash.now[:success] = "Rating successfully updated"
+        format.js
       else
-        format.html { render :edit }
-        format.json { render json: @rating.errors, status: :unprocessable_entity }
+        flash.now[:error] = "Rating is not updated due to an error"
+        format.js
       end
-    end
-  end
-
-  def destroy
-    @rating.destroy
-    respond_to do |format|
-      format.html { redirect_to ratings_url, notice: 'Rating was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -55,8 +37,15 @@ class RatingsController < ApplicationController
       @rating = Rating.find(params[:id])
     end
 
-    def rating_params
-      params.require(:rating).permit(:score, :user_id, :movie_id)
+    def set_movie
+      @movie = Movie.find(params[:movie_id])
     end
 
+    def rating_params
+      params.require(:rating).permit(:score)
+    end
+
+    def set_user_ratings
+      @user_movie_rating = @movie.movie_ratings(current_user)
+    end
 end
