@@ -50,4 +50,12 @@ class Movie < ActiveRecord::Base
     self.ratings.exists ? (self.ratings.average(:score)) : 0
   end
 
+  def movie_cast
+    self.actors.pluck(:name).join(', ')
+  end
+
+  def first_poster
+    self.images.first
+  end
+
 end

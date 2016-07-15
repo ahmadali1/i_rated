@@ -8,3 +8,4 @@
 Actor.find_or_create_by(name: "Umas", country: "pakistan")
 Actor.find_or_create_by(name: "Umar", country: "pakistan")
 Actor.find_or_create_by(name: "Umat", country: "pakistan")
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
