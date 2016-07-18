@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :ratings, dependent: :destroy
   has_many :report_reviews, dependent: :destroy
+  has_many :favourite_movies, dependent: :destroy
 
   validates :first_name, presence: true, length: { maximum: 60 }
   validates :last_name, presence: true, length: { maximum: 60 }

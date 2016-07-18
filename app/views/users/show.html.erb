@@ -1,16 +1,16 @@
-<div class="container" id="my-container">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="panel panel-default">
-        <div class="panel-heading text-center">
+<div class='container' id='my-container'>
+  <div class='row'>
+    <div class='col-md-8 col-md-offset-2'>
+      <div class='panel panel-default'>
+        <div class='panel-heading text-center'>
           <strong>Your Profile</strong>
         </div>
-        <div class="panel-body">
+        <div class='panel-body'>
           <%= image_tag show_image(@user.image, :med), class: 'img-responsive thumbnail center-block' %>
-          <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-              <table class="table table-condensed">
+          <div class='row'>
+            <div class='col-md-3'></div>
+            <div class='col-md-6'>
+              <table class='table table-condensed'>
                 <tbody>
                   <tr>
                     <td>
@@ -53,14 +53,24 @@
                     </td>
                   </tr>
                   <tr>
-                    <td colspan="2">
+                    <td colspan='2'>
                       <%= link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-default btn-block' %>
                     </td>
                   </tr>
                 </tbody>
               </table>
+              <hr>
+              <h3 class='text-center'>My Favourite Movies</h3>
+              <% @favourite_movies.each do |favourite| %>
+                <div class='col-md-3'>
+                  <%= link_to movie_path(favourite.movie.id) do %>
+                    <%= image_tag fetch_thumbnail favourite.movie.images.first %>
+                  <% end %>
+                </div>
+              <% end %>
+              <%= paginate @favourite_movies %>
             </div>
-            <div class="col-md-3"></div>
+            <div class='col-md-3'></div>
           </div>
         </div>
       </div>

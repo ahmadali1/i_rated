@@ -1,6 +1,7 @@
 class Movie < ActiveRecord::Base
 
   paginates_per 10
+  FAVOURITE_PER = 8
   LATEST_MOVIES_LIMIT = 4
   FEATURED_MOVIES_LIMIT = 4
   GENRE = ["Action", "Horror", "Romance", "Documentary", "Biography", "Comedy", "Crime", "Drama", "Romance", "War"]
@@ -11,6 +12,7 @@ class Movie < ActiveRecord::Base
   has_many :actors, through: :movie_casts
   has_many :reviews, dependent: :destroy
   has_many :ratings, dependent: :destroy
+  has_many :favourite_movies, dependent: :destroy
 
   scope :latest, -> { order(released_date: :desc) }
   scope :featured, -> { where(is_featured: true) }
@@ -56,6 +58,12 @@ class Movie < ActiveRecord::Base
 
   def first_poster
     self.images.first
+  end
+
+  def create_favourite(params, user)
+    favourite = self.favourite_movies.new
+    favourite.user = user
+    favourite.save
   end
 
 end

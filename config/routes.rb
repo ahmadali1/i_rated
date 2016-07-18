@@ -17,6 +17,12 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: :show
 
+  resources :movies, only: [] do
+    member do
+      post 'favourite_movie'
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

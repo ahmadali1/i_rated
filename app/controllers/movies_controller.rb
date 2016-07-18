@@ -1,7 +1,8 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy, :favourite_movie]
   before_action :get_actors
   before_action :authenticate_user!, except: [:show, :index]
+  before_action :already_favourite_movie, only: :favourite_movie
   # GET /movies
   # GET /movies.json
   def index
@@ -56,6 +57,17 @@ class MoviesController < ApplicationController
     end
   end
 
+  def favourite_movie
+    if @movie.create_favourite(params, current_user)
+      flash[:success] = 'This movie has been added to favourite movies'
+    else
+      flash[:error] = @movie.errors
+    end
+    respond_to do |format|
+     format.html { redirect_to @movie }
+    end
+  end
+
   # DELETE /movies/1
   # DELETE /movies/1.json
   def destroy
@@ -79,6 +91,13 @@ class MoviesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
       params.require(:movie).permit(:name, :released_date, :is_featured, :description, :duration, :embedded_video, :genre, actor_ids: [], images_attributes: [:id, :image, :_destroy])
+    end
+
+    def already_favourite_movie
+      if FavouriteMovie.already_favourite?(@movie, current_user)
+        flash[:error] = 'Already added to favourite movies'
+        redirect_to movie_path(@movie)
+      end
     end
 
 end

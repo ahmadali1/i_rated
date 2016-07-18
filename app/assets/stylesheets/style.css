@@ -70,3 +70,7 @@ hr {
 #reviews {
   overflow-wrap: break-word;
 }
+
+#favourite-btn {
+  margin-left: 25%;
+}
