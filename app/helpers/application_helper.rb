@@ -34,4 +34,8 @@ module ApplicationHelper
     datetime.strftime("%m-%e-%y %H:%M")
   end
 
+  def span_elem(class_name)
+    content_tag(:span, '', class: "glyphicon glyphicon-#{class_name}")
+  end
+
 end
