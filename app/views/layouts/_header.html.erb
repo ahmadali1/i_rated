@@ -27,7 +27,7 @@
             <%= link_to span_elem('log-in') +' Logout', destroy_user_session_path, method: :delete %>
           </li>
           <li>
-            <%= link_to span_elem('user') +' Edit Profile', edit_user_registration_path %>
+            <%= link_to span_elem('user') + ' Profile', user_path(current_user) %>
           </li>
         <% else %>
           <li>
