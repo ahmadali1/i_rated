@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                   <div class="input-group">
-                    <%= f.label :released_date %>
+                    <span class="input-group-addon">Released Date:</span>
                     <%= f.date_field :released_date, class: 'form-control', required: true %>
                   </div>
                 </div>
@@ -34,20 +34,20 @@
                 </div>
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon">
-                      Embedded Video:
-                    </span>
-                    <%= f.text_field :embedded_video, class: 'form-control', placeholder: 'Embedded Video' %>
+                    <span class="input-group-addon">Embedded Video:</span>
+                    <%= f.text_area :embedded_video, class: 'form-control', placeholder: 'Embedded Video', maxlength: 250 %>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="input-group">
-                    <%= f.select :genre, options_for_select(collection_for_movie_genre), include_blank: 'Please Select Genre' %>
+                    <span class="input-group-addon">Genre:</span>
+                    <%= f.select :genre, options_for_select(collection_for_movie_genre, @movie.genre), {include_blank: 'Please Select Genre'}, class: 'form-control' %>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="input-group cktxt">
-                    <%= f.cktext_area :description, class: 'form-control' %>
+                    <span class="input-group-addon">Description</span>
+                    <%= f.cktext_area :description, class: 'form-control', placeholder: 'Enter your description here' %>
                   </div>
                 </div>
                 <div class="form-group">
