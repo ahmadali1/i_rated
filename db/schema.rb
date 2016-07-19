@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20160718075813) do
     t.boolean  "is_featured",                  default: false, null: false
     t.text     "description",    limit: 65535
     t.string   "duration",       limit: 20
-    t.string   "embedded_video", limit: 255
+    t.string   "embedded_video", limit: 250
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.string   "genre",          limit: 30

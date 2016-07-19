@@ -21,6 +21,7 @@ class Movie < ActiveRecord::Base
   validates :released_date, presence: true
   validates :duration, length: { maximum: 20 }
   validates :genre, length: { maximum: 30 }
+  validates :embedded_video, length: { maximum: 250 }
 
   def all_movie_actors
     return self.actors.collect(&:name).join(', ')
