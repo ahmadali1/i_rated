@@ -40,4 +40,8 @@ module ApplicationHelper
     content_tag(:span, '', class: "glyphicon glyphicon-#{class_name}")
   end
 
+  def render_date(datetime)
+    datetime.strftime("%m-%d-%y")
+  end
+
 end
