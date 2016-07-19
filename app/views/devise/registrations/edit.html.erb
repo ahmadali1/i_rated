@@ -33,7 +33,7 @@
                     <span class="input-group-addon">
                       <i class="glyphicon glyphicon-envelope"></i>
                     </span>
-                    <%= f.email_field :email, autocomplete: 'on', class: 'form-control', placeholder: 'Email Address', required: true %>
+                    <%= f.email_field :email, autocomplete: 'on', class: 'form-control', placeholder: 'Email Address', required: true, pattern: ApplicationHelper::EMAIL_FORMAT %>
                   </div>
                 </div>
 

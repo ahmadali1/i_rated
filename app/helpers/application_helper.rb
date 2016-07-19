@@ -1,5 +1,7 @@
 module ApplicationHelper
 
+  EMAIL_FORMAT = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}/
+
   def show_image(image, size= :med)
     unless image.nil?
       image.image.url(size)
