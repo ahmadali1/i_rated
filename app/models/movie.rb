@@ -15,7 +15,7 @@ class Movie < ActiveRecord::Base
   has_many :favourite_movies, dependent: :destroy
 
   scope :latest, -> { order(released_date: :desc) }
-  scope :featured, -> { where(is_featured: true) }
+  scope :featured, -> { where(is_featured: true).latest }
 
   validates :name, presence: true, length: { maximum: 60 }
   validates :released_date, presence: true
@@ -38,7 +38,7 @@ class Movie < ActiveRecord::Base
   def self.get_movies(movie_params)
     return self.featured if movie_params[:featured].present?
     return self.latest if movie_params[:latest].present?
-    return self.all
+    return self.latest
   end
 
   def movie_ratings(user)
