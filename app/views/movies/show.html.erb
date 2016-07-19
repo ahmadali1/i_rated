@@ -36,7 +36,7 @@
       <h1><strong><%= @movie.name %></strong></h1>
       <table class="table table-condensed">
         <tbody>
-          <tr>
+          <tr class=<%= hide_content @movie.genre %>>
             <td>
               <strong>Genre:</strong>
             </td>
@@ -52,7 +52,7 @@
               <%= render_date @movie.released_date %>
             </td>
           </tr>
-          <tr>
+          <tr class=<%= hide_content @movie.duration %>>
             <td>
               <strong>Duration:</strong>
             </td>
@@ -60,7 +60,7 @@
               <%= @movie.duration %>
             </td>
           </tr>
-          <tr>
+          <tr class=<%= hide_content @movie.all_movie_actors %>>
             <td>
               <strong>Actors:</strong>
             </td>
@@ -98,13 +98,13 @@
     </div>
   </div>
   <hr>
-  <div class="row">
-    <div class="col-md-5">
+  <div class='row'>
+    <div class='col-md-5 <%= hide_content @movie.description %>'>
       <h3>Description</h3>
       <p class="movie-font"><%= raw @movie.description %></p>
     </div>
-    <div class="col-md-7">
-    <h2>Trailer</h2>
+    <div class='col-md-7 <%= hide_content @movie.embedded_video %>'>
+      <h2>Trailer</h2>
       <%= raw @movie.embedded_video %>
     </div>
   </div>
