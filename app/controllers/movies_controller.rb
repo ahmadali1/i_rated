@@ -6,7 +6,12 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.get_movies(params).page(params[:page])
+    @movies =
+      if params[:search].present?
+        Movie.search(params[:search]).latest_first.page(params[:page]).per(Movie::SEARCHED_PER)
+      else
+        Movie.get_movies(params).page(params[:page])
+      end
   end
 
   # GET /movies/1

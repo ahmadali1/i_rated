@@ -1,7 +1,9 @@
 class Movie < ActiveRecord::Base
 
+  include ThinkingSphinx::Scopes
   paginates_per 10
   FAVOURITE_PER = 8
+  SEARCHED_PER = 10
   LATEST_MOVIES_LIMIT = 4
   FEATURED_MOVIES_LIMIT = 4
   GENRE = ["Action", "Horror", "Romance", "Documentary", "Biography", "Comedy", "Crime", "Drama", "Romance", "War"]
@@ -16,6 +18,9 @@ class Movie < ActiveRecord::Base
 
   scope :latest, -> { order(released_date: :desc) }
   scope :featured, -> { where(is_featured: true).latest }
+
+  sphinx_scope(:latest_first) {{order: 'released_date DESC'}}
+
 
   validates :name, presence: true, length: { maximum: 60 }
   validates :released_date, presence: true
