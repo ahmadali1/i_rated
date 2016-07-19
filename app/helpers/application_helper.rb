@@ -44,4 +44,8 @@ module ApplicationHelper
     datetime.strftime("%m-%d-%y")
   end
 
+  def hide_content(content)
+    'hidden' if content.blank?
+  end
+
 end
