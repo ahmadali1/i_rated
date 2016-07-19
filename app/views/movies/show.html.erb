@@ -2,7 +2,28 @@
 <div id="my-container">
   <div class="row">
     <div class="col-md-4">
-      <%= image_tag fetch_thumbnail(@movie.images.first, :med), class: 'img-thumbnail' %>
+
+      <div id='myCarousel' class='carousel slide' data-ride='carousel'>
+        <div class='carousel-inner' role='listbox'>
+          <div class='item active'>
+            <%= image_tag show_image(@movie.images.first) %>
+          </div>
+          <% @movie.images.each do |image| %>
+            <div class='item'>
+              <%= image_tag show_image(image) %>
+            </div>
+          <% end %>
+        </div>
+        <%= link_to '#myCarousel', {role: 'button', 'data-slide': 'prev', class: 'left carousel-control'} do %>
+          <span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>
+          <span class='sr-only'>Previous</span>
+        <% end %>
+        <%= link_to '#myCarousel', {role: 'button', 'data-slide': 'next', class: 'right carousel-control'} do %>
+          <span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>
+          <span class='sr-only'>Next</span>
+        <% end %>
+      </div>
+
       <div class="add-to-favourite">
         <% unless FavouriteMovie.already_favourite?(current_user, @movie) %>
           <%= link_to 'Add to Favourite', favourite_movie_movie_path(@movie, favourite: true), class: 'btn btn-xs btn-primary', id: 'favourite-btn', method: :post %>
