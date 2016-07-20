@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
   def index
     @movies =
       if params[:search].present?
-        Movie.search(params[:search]).latest_first.page(params[:page]).per(Movie::SEARCHED_PER)
+        Movie.search(params[:search]).latest_first.approved_movies.page(params[:page]).per(Movie::SEARCHED_PER)
       else
         Movie.get_movies(params).page(params[:page])
       end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719120234) do
+ActiveRecord::Schema.define(version: 20160720034930) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20160719120234) do
     t.datetime "updated_at",                                   null: false
     t.string   "genre",          limit: 30
     t.boolean  "delta",                        default: true,  null: false
+    t.boolean  "approved",                     default: false
   end
 
   add_index "movies", ["genre"], name: "index_movies_on_genre", using: :btree

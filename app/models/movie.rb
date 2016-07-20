@@ -18,9 +18,10 @@ class Movie < ActiveRecord::Base
 
   scope :latest, -> { order(released_date: :desc) }
   scope :featured, -> { where(is_featured: true).latest }
+  scope :approved, -> { where(approved: true) }
 
   sphinx_scope(:latest_first) {{order: 'released_date DESC'}}
-
+  sphinx_scope(:approved_movies) {{with: {approved: true}}}
 
   validates :name, presence: true, length: { maximum: 60 }
   validates :released_date, presence: true
@@ -33,17 +34,16 @@ class Movie < ActiveRecord::Base
   end
 
   def self.get_latest_movies
-    self.latest.limit(LATEST_MOVIES_LIMIT);
+    self.latest.approved.limit(LATEST_MOVIES_LIMIT);
   end
 
   def self.get_featured_movies
-    self.featured.limit(FEATURED_MOVIES_LIMIT)
+    self.featured.approved.limit(FEATURED_MOVIES_LIMIT)
   end
 
   def self.get_movies(movie_params)
-    return self.featured if movie_params[:featured].present?
-    return self.latest if movie_params[:latest].present?
-    return self.latest
+    return self.featured.approved if movie_params[:featured].present?
+    return self.latest.approved
   end
 
   def movie_ratings(user)
