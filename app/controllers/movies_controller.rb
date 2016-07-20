@@ -3,15 +3,12 @@ class MoviesController < ApplicationController
   before_action :get_actors
   before_action :authenticate_user!, except: [:show, :index]
   before_action :already_favourite_movie, only: :favourite_movie
+  before_action :validate_date_range, only: :index
   # GET /movies
   # GET /movies.json
   def index
-    @movies =
-      if params[:search].present?
-        Movie.search(params[:search]).latest_first.approved_movies.page(params[:page]).per(Movie::SEARCHED_PER)
-      else
-        Movie.get_movies(params).page(params[:page])
-      end
+    @movies = Movie.search_movie params
+    @movies = @movies.page(params[:page]).per Movie::PAGINATE_PER
   end
 
   # GET /movies/1
@@ -103,6 +100,18 @@ class MoviesController < ApplicationController
         flash[:error] = 'Already added to favourite movies'
         redirect_to movie_path(@movie)
       end
+    end
+
+    def validate_date_range
+      return if params[:start_date].blank? && params[:end_date].blank?
+      if params[:start_date].blank? && params[:end_date].present?
+        message = 'Start date should not be blank'
+      elsif params[:start_date].present? && params[:end_date].blank?
+        message = 'End date should not be blank'
+      elsif params[:start_date].to_date > params[:end_date].to_date
+        message = 'End date should be after start date'
+      end
+      redirect_to movies_path, flash: { error: message } if message
     end
 
 end

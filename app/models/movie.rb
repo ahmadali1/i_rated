@@ -1,9 +1,8 @@
 class Movie < ActiveRecord::Base
 
   include ThinkingSphinx::Scopes
-  paginates_per 10
+  PAGINATE_PER = 10
   FAVOURITE_PER = 8
-  SEARCHED_PER = 10
   LATEST_MOVIES_LIMIT = 4
   FEATURED_MOVIES_LIMIT = 4
   GENRE = ["Action", "Horror", "Romance", "Documentary", "Biography", "Comedy", "Crime", "Drama", "Romance", "War"]
@@ -19,9 +18,6 @@ class Movie < ActiveRecord::Base
   scope :latest, -> { order(released_date: :desc) }
   scope :featured, -> { where(is_featured: true).latest }
   scope :approved, -> { where(approved: true) }
-
-  sphinx_scope(:latest_first) {{order: 'released_date DESC'}}
-  sphinx_scope(:approved_movies) {{with: {approved: true}}}
 
   validates :name, presence: true, length: { maximum: 60 }
   validates :released_date, presence: true
@@ -70,6 +66,34 @@ class Movie < ActiveRecord::Base
     favourite = self.favourite_movies.new
     favourite.user = user
     favourite.save
+  end
+
+  def self.section_params(params)
+    params[:featured] || params[:latest] || params[:top]
+  end
+
+  def self.valid_date?(params)
+    params[:start_date].present? && params[:end_date].present?
+  end
+
+  def self.default_conditions(params)
+    default_conditions =
+      {
+        conditions: {},
+        with: {},
+        order: 'released_date DESC',
+      }
+    default_conditions[:conditions][:genre] = params[:genre] if params[:genre].present?
+    default_conditions[:conditions][:actor] = params[:actor] if params[:actor].present?
+    default_conditions[:conditions][:description] = params[:description] if params[:description].present?
+    default_conditions[:with][:released_date] = Date.parse(params[:start_date])..Date.parse(params[:end_date]) if valid_date?(params)
+    default_conditions[:with][:approved] = true
+    return default_conditions
+  end
+
+  def self.search_movie(params)
+    return self.get_movies(params) if section_params(params)
+    self.search params[:search], default_conditions(params)
   end
 
 end

@@ -1,8 +1,9 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"><%= render 'layouts/flash_messages' %></p>
 
 <div id="my-container">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
+    <%= render 'search' %>
       <div class="panel panel-default">
         <div class="panel-body">
           <h1 class="text-center">Movie Listings</h1>

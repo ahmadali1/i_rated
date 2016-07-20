@@ -1,0 +1,51 @@
+<button type='button' class='btn btn-primary btn-block' data-toggle='modal' data-target='#myModal'>Advance Search</button>
+<div class='modal fade' id='myModal' role='dialog'>
+  <div class='modal-dialog modal-lg'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal'>&times;</button>
+        <h4 class='modal-title text-center'>Advance Search Form</h4>
+      </div>
+      <div class='well'>
+        <%= form_tag movies_path, method: :get do %>
+          <div class='row'>
+            <div class='form-group'>
+              <div class='input-group'>
+                <span class='input-group-addon'><i class='glyphicon glyphicon-facetime-video'></i>Movie Name: </span>
+                <%= text_field_tag :search, params[:search], class:'form-control', placeholder: 'Title' %>
+                <span class='input-group-addon'>
+                  <i class='glyphicon glyphicon-facetime-video'></i>
+                  Genre :
+                </span>
+                <%= select_tag :genre, options_for_select(collection_for_movie_genre), include_blank: 'Please Select Genre', class: 'form-control' %>
+                <span class='input-group-addon'>
+                  <i class='glyphicon glyphicon-user'></i>
+                  Actor :
+                </span>
+                <%= text_field_tag :actor, params[:actor], class:'form-control', placeholder: 'Name' %>
+              </div>
+            </div>
+            <div class='form-group'>
+              <div class='input-group'>
+                <span class='input-group-addon'>
+                  <i class='glyphicon glyphicon-list-alt'></i>
+                  Description :
+                </span>
+                <%= text_field_tag :description, params[:description], class:'form-control', placeholder: 'Description' %>
+                <span class='input-group-addon'>
+                  <i class='glyphicon glyphicon-time'></i> From:
+                </span>
+                <%= date_field_tag :start_date, params[:start_date], class:'form-control' %>
+                <span class='input-group-addon'>
+                  <i class='glyphicon glyphicon-time'></i> To:
+                </span>
+                <%= date_field_tag :end_date, params[:end_date], class:'form-control' %>
+              </div>
+            </div>
+            <%= submit_tag 'submit', class: 'btn btn-primary btn-block' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

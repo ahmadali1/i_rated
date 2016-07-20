@@ -4,6 +4,8 @@ ThinkingSphinx::Index.define :movie, with: :active_record, delta: true do
   indexes description
   indexes genre
   indexes actors.name, as: :actor
-  indexes released_date, sortable: true
+
+  has released_date, sortable: true
+  has approved
 
 end
