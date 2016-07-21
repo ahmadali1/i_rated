@@ -1,0 +1,4 @@
+$('#notice').html("<%= j render('layouts/flash_messages') %>");
+$('#reviews-div').html("<%= j render('movies/rating') %>");
+average_ratings('#star', <%= @movie.average_rating %>)
+StarRating.update_rating();
