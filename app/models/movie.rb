@@ -3,8 +3,7 @@ class Movie < ActiveRecord::Base
   include ThinkingSphinx::Scopes
   PAGINATE_PER = 10
   FAVOURITE_PER = 8
-  LATEST_MOVIES_LIMIT = 4
-  FEATURED_MOVIES_LIMIT = 4
+  HOME_MOVIES_LIMIT = 4
   GENRE = ["Action", "Horror", "Romance", "Documentary", "Biography", "Comedy", "Crime", "Drama", "Romance", "War"]
 
   has_many :images, as: :imageable
@@ -18,6 +17,7 @@ class Movie < ActiveRecord::Base
   scope :latest, -> { order(released_date: :desc) }
   scope :featured, -> { where(is_featured: true).latest }
   scope :approved, -> { where(approved: true) }
+  scope :top, -> { joins(:ratings).group('movie_id').order('AVG(ratings.score) DESC') }
 
   validates :name, presence: true, length: { maximum: 60 }
   validates :released_date, presence: true
@@ -30,16 +30,18 @@ class Movie < ActiveRecord::Base
   end
 
   def self.get_latest_movies
-    self.latest.approved.limit(LATEST_MOVIES_LIMIT);
+    self.latest.approved.limit(HOME_MOVIES_LIMIT);
   end
 
   def self.get_featured_movies
-    self.featured.approved.limit(FEATURED_MOVIES_LIMIT)
+    self.featured.approved.limit(HOME_MOVIES_LIMIT)
   end
 
   def self.get_movies(movie_params)
-    return self.featured.approved if movie_params[:featured].present?
-    return self.latest.approved
+    movies = self.approved
+    return movies.featured if movie_params[:featured].present?
+    return movies.top if movie_params[:top].present?
+    return movies.latest
   end
 
   def movie_ratings(user)

@@ -88,3 +88,7 @@ iframe {
 .margin-top-5 {
   margin-top: 5px;
 }
+
+.latest-movies {
+  display: inline-block;
+}

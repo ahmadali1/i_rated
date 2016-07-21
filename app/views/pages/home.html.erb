@@ -21,14 +21,25 @@
   </div>
 </div>
 
-<div class='hidden'>
-  <div class='clearfix clearfix-margin-10'></div>
+<div class=<%= hide_content @top_movies %>>
+  <div class='clearfix-margin-5'></div>
   <h3><strong>Top Movies</strong></h3>
-  <%= link_to 'Browse More', {}, class: 'btn btn-default pull-right' %>
-  <hr>
+  <%= link_to 'Browse More', movies_path(top: true), class: 'btn btn-default pull-right' %>
+  <hr class='clearfix-margin-5'>
+  <% @top_movies.each do |movie| %>
+    <div class='col-md-3 thumbnail'>
+      <%= link_to movie_path(movie) do %>
+        <%= image_tag fetch_thumbnail(movie.images.first, :large), class: 'img-responsive' %>
+      <% end %>
+      <p class='text-center movie-font'>
+        <strong><%= movie.name %></strong>
+      </p>
+      <p class='text-center movie-font'>Released Date :<%= movie.released_date %></p>
+    </div>
+  <% end %>
 </div>
 
-<div class=<%= hide_content @latest_movies %>>
+<div class='latest-movies <%= hide_content @latest_movies %>'>
   <div class='clearfix-margin-5'></div>
   <h3><strong>Latest Movies</strong></h3>
   <%= link_to 'Browse More', movies_path(latest: true), class: 'btn btn-default pull-right' %>
