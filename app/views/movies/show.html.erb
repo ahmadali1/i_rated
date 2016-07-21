@@ -1,7 +1,7 @@
 <p id="notice"><%= render 'layouts/flash_messages' %></p>
 <div id="my-container">
   <div class="row">
-    <div class="col-md-4">
+    <div class='col-md-4 col-sm-4'>
 
       <div id='myCarousel' class='carousel slide' data-ride='carousel'>
         <div class='carousel-inner' role='listbox'>
@@ -24,7 +24,7 @@
         <% end %>
       </div>
 
-      <div class="add-to-favourite">
+      <div class='add-to-favourite margin-top-5'>
         <% unless FavouriteMovie.already_favourite?(current_user, @movie) %>
           <%= link_to 'Add to Favourite', favourite_movie_movie_path(@movie, favourite: true), class: 'btn btn-xs btn-primary', id: 'favourite-btn', method: :post %>
         <% else %>
@@ -32,7 +32,7 @@
         <% end %>
       </div>
     </div>
-    <div class="col-md-4 col-md-offset-1">
+    <div class='col-md-4 col-sm-8 col-md-offset-1'>
       <h1><strong><%= @movie.name %></strong></h1>
       <table class="table table-condensed">
         <tbody>
@@ -86,7 +86,7 @@
             </td>
           </tr>
           <tr>
-            <td>
+            <td colspan='2'>
 
               <% @movie.images.each do |attachment| %>
                 <%= image_tag attachment.image.url(:small) %>
@@ -97,11 +97,12 @@
       </table>
     </div>
   </div>
+  <%= link_to 'Back to movies', movies_path, class: 'btn btn-success btn-sm pull-right' %>
   <hr>
   <div class='row'>
     <div class='col-md-5 <%= hide_content @movie.description %>'>
       <h3>Description</h3>
-      <p class="movie-font"><%= raw @movie.description %></p>
+      <p class='movie-font text-justify'><%= raw @movie.description %></p>
     </div>
     <div class='col-md-7 <%= hide_content @movie.embedded_video %>'>
       <h2>Trailer</h2>
