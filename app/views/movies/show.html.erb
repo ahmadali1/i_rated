@@ -120,10 +120,6 @@
       <%= render partial: 'review', collection: @reviews, as: :review %>
     </div>
   </div>
-  <div class="row pull-right">
-    <%= link_to 'Back to movies', movies_path, class: 'btn btn-default btn-sm' %>
-    <%= link_to 'Edit this movie', edit_movie_path(@movie), class: 'btn btn-default btn-sm' %>
-  </div>
 </div>
 
 <% content_for :js_init do %>

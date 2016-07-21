@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   mount Ckeditor::Engine => '/ckeditor'
-  resources :movies do
+  resources :movies , except: [:edit, :destroy, :update] do
     resources :reviews, except: [:show, :index]
     resources :ratings, only: [:create, :update]
   end

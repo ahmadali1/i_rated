@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :edit, :update, :destroy, :favourite_movie]
+  before_action :set_movie, only: [:show, :favourite_movie]
   before_action :get_actors
   before_action :authenticate_user!, except: [:show, :index]
   before_action :already_favourite_movie, only: :favourite_movie
@@ -24,11 +24,6 @@ class MoviesController < ApplicationController
     @movie = Movie.new
   end
 
-  # GET /movies/1/edit
-  def edit
-    @selected = @movie.actors.pluck(:id)
-  end
-
   # POST /movies
   # POST /movies.json
   def create
@@ -45,20 +40,6 @@ class MoviesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /movies/1
-  # PATCH/PUT /movies/1.json
-  def update
-    respond_to do |format|
-      if @movie.update(movie_params)
-        format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
-        format.json { render :show, status: :ok, location: @movie }
-      else
-        format.html { render :edit }
-        format.json { render json: @movie.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def favourite_movie
     if @movie.create_favourite(params, current_user)
       flash[:success] = 'This movie has been added to favourite movies'
@@ -67,16 +48,6 @@ class MoviesController < ApplicationController
     end
     respond_to do |format|
      format.html { redirect_to @movie }
-    end
-  end
-
-  # DELETE /movies/1
-  # DELETE /movies/1.json
-  def destroy
-    @movie.destroy
-    respond_to do |format|
-      format.html { redirect_to movies_url, notice: 'Movie was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
