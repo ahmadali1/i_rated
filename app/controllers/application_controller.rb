@@ -19,4 +19,15 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  def valid_date_range(params)
+    return if params[:start_date].blank? && params[:end_date].blank?
+    if params[:start_date].blank? && params[:end_date].present?
+      message = 'Start date should not be blank'
+    elsif params[:start_date].present? && params[:end_date].blank?
+      message = 'End date should not be blank'
+    elsif params[:start_date].to_date > params[:end_date].to_date
+      message = 'End date should be after start date'
+    end
+  end
+
 end

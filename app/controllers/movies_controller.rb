@@ -103,14 +103,7 @@ class MoviesController < ApplicationController
     end
 
     def validate_date_range
-      return if params[:start_date].blank? && params[:end_date].blank?
-      if params[:start_date].blank? && params[:end_date].present?
-        message = 'Start date should not be blank'
-      elsif params[:start_date].present? && params[:end_date].blank?
-        message = 'End date should not be blank'
-      elsif params[:start_date].to_date > params[:end_date].to_date
-        message = 'End date should be after start date'
-      end
+      message = valid_date_range(params)
       redirect_to movies_path, flash: { error: message } if message
     end
 
