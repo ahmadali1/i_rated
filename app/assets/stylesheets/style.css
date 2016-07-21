@@ -92,3 +92,31 @@ iframe {
 .latest-movies {
   display: inline-block;
 }
+
+hr {
+  border-color: gray;
+}
+
+#storyline > p {
+  all: inherit;
+  display: inline;
+  margin-top: 5%;
+}
+
+.index-images {
+  box-shadow: 10px 5px 6px #888888;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.block-inline {
+  display: inline;
+}
+
+.top-margin-2 {
+  margin-top: 2%;
+}
+
+.link-class:hover {
+  text-decoration: none;
+}

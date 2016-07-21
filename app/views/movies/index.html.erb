@@ -1,21 +1,15 @@
-<p id="notice"><%= render 'layouts/flash_messages' %></p>
+<p id='notice'><%= render 'layouts/flash_messages' %></p>
 
-<div id="my-container">
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-    <%= render 'search' %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <h1 class="text-center">Movie Listings</h1>
-          <div class="clearfix"></div>
-          <table class="table table-striped table-hover">
-            <thead class="thead-default">
-              <tr>
-                <th></th>
-                <th colspan="2">Name</th>
-                <th>Released date</th>
-                <th colspan="2">Ratings</th>
-              </tr>
+<div id='my-container'>
+  <div class='row'>
+    <div class='col-md-10 col-md-offset-1'>
+      <%= render 'search' %>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          <h1 class='text-center'>Movie Listings</h1>
+          <div class='clearfix'></div>
+          <table class='table table-striped table-hover'>
+            <thead class='thead-default'>
             </thead>
 
             <tbody>
@@ -23,28 +17,32 @@
               <% @movies.each do |movie| %>
                 <tr>
                   <td>
-                    <div>
+                    <div class='row'>
+                      <div class='col-md-3 col-sm-3 col-xs-3'>
+                        <%= link_to movie_path(movie) do %>
+                          <%= image_tag fetch_thumbnail(movie.images.first, :med), class: 'index-images' %>
+                        <% end %>
+                      </div>
+                      <div class='col-md-7 col-sm-7 col-xs-7'>
+                        <div class='clearfix-margin-5 top-margin-2'>
+                          <%= link_to movie_path(movie), class: 'link-class' do %>
+                            <h2 class='block-inline'><%= movie.name %></h2>
+                          <% end %>
+                          <h2 class='block-inline'><small>(<%= movie.released_date %>)</small></h2>
+                        </div>
+                        <div class='clearfix-margin-5 <%= hide_content movie.genre %>'>
+                          <h4 class='block-inline'>
+                            <strong>Genre : </strong><%= movie.genre %>
+                          </h4>
 
-                      <%= link_to movie_path(movie) do %>
-                        <%= image_tag fetch_thumbnail(movie.images.first, :small), class: 'img-responsive img-thumbnail thumbnails' %>
-                      <% end %>
+                        </div>
+                        <div id='storyline' class=<%= hide_content movie.description %>>
+                          <h5 class='block-inline'><strong>Storyline :</strong></h5>
+                          <%= sanitize movie.description.to_s.slice(0..300)<<' .....' %>
+                        </div>
+                      </div>
+                      <div class='col-md-2'></div>
                     </div>
-                  </td>
-                  <td class="vert-align" colspan="2">
-                    <strong class="movie-font">
-
-                      <%= link_to movie_path(movie), class: 'btn btn-default default-btn' do %>
-                        <%= movie.name %>
-                      <% end %>
-                    </strong>
-                  </td>
-                  <td class="vert-align"><%= movie.released_date %></td>
-                  <td class="vert-align" colspan="2">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                   </td>
                 </tr>
               <% end %>
@@ -52,9 +50,7 @@
           </table>
           <%= paginate @movies %>
         </div>
-        <%= link_to 'Create New Movie', new_movie_path, class: 'btn btn-info btn-block' %>
       </div>
     </div>
   </div>
 </div>
-
