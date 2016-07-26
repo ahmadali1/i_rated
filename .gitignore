@@ -13,3 +13,4 @@
 /tmp
 /public/system
 /db/sphinx/development/*
+/config/development.sphinx.conf
