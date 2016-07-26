@@ -6,10 +6,12 @@
           <strong>Your Profile</strong>
         </div>
         <div class='panel-body'>
-          <%= image_tag show_image(@user.image, :med), class: 'img-responsive thumbnail center-block' %>
           <div class='row'>
-            <div class='col-md-3'></div>
-            <div class='col-md-6'>
+            <div class='col-md-5'>
+              <%= image_tag show_image(@user.image, :med), class: 'img-responsive thumbnail' %>
+            </div>
+
+            <div class='col-md-7 top-margin-6'>
               <table class='table table-condensed'>
                 <tbody>
                   <tr>
@@ -59,18 +61,47 @@
                   </tr>
                 </tbody>
               </table>
-              <hr>
-              <h3 class='text-center'>My Favourite Movies</h3>
-              <% @favourite_movies.each do |favourite| %>
-                <div class='col-md-3'>
-                  <%= link_to movie_path(favourite.movie.id) do %>
-                    <%= image_tag fetch_thumbnail favourite.movie.images.first %>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-md-12'>
+              <h3>My Favourite Movies</h3>
+              <table class='table table-striped table-hover'>
+                <tbody>
+                  <% @favourite_movies.each do |favourite| %>
+                    <tr>
+                      <td>
+                        <div class='row'>
+                          <div class='col-md-3 col-sm-3 col-xs-12'>
+                            <%= link_to movie_path(favourite.movie) do %>
+                              <%= image_tag fetch_thumbnail(favourite.movie.images.first, :med), class: 'index-images' %>
+                            <% end %>
+                          </div>
+                          <div class='col-md-7 col-sm-7 col-xs-12'>
+                            <div class='clearfix-margin-5 top-margin-2'>
+                              <%= link_to movie_path(favourite.movie), class: 'link-class' do %>
+                                <h2 class='block-inline'><%= favourite.movie.name %></h2>
+                              <% end %>
+                              <h2 class='block-inline'><small>(<%= render_date favourite.movie.released_date %>)</small></h2>
+                            </div>
+                            <div class='clearfix-margin-5 <%= hide_content favourite.movie.genre %>'>
+                              <h4 class='block-inline'>
+                                <strong>Genre : </strong><%= favourite.movie.genre %>
+                              </h4>
+                            </div>
+                            <div id='storyline' class=<%= hide_content favourite.movie.description %>>
+                              <h5 class='block-inline'><strong>Storyline :</strong></h5>
+                              <%= truncate(sanitize(favourite.movie.description), length: 100) %>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
                   <% end %>
-                </div>
-              <% end %>
+                </tbody>
+              </table>
               <%= paginate @favourite_movies %>
             </div>
-            <div class='col-md-3'></div>
           </div>
         </div>
       </div>
