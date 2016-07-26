@@ -1,4 +1,4 @@
-<button type='button' class='btn btn-primary btn-block' data-toggle='modal' data-target='#myModal'>Advance Search</button>
+<%= button_tag 'Advance Search', class: 'btn btn-primary pull-right btn-radius-0', data: { toggle: 'modal', target: '#myModal' } %>
 <div class='modal fade' id='myModal' role='dialog'>
   <div class='modal-dialog modal-lg'>
     <div class='modal-content'>
@@ -21,7 +21,7 @@
                   <i class='glyphicon glyphicon-facetime-video'></i>
                   Genre :
                 </span>
-                <%= select_tag :genre, options_for_select(collection_for_movie_genre), include_blank: 'Please Select Genre', class: 'form-control' %>
+                <%= select_tag :genre, options_for_select(collection_for_movie_genre, params[:genre]), include_blank: 'Please Select Genre', class: 'form-control' %>
               </div>
             </div>
             <div class='form-group'>
@@ -59,7 +59,9 @@
               </div>
             </div>
 
-            <%= submit_tag 'submit', class: 'btn btn-primary btn-block' %>
+            <center>
+              <%= submit_tag 'Submit', class: 'btn btn-primary btn-width-50' %>
+            </center>
           </div>
         <% end %>
       </div>

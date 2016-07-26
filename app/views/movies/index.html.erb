@@ -28,7 +28,7 @@
                           <%= link_to movie_path(movie), class: 'link-class' do %>
                             <h2 class='block-inline'><%= movie.name %></h2>
                           <% end %>
-                          <h2 class='block-inline'><small>(<%= movie.released_date %>)</small></h2>
+                          <h2 class='block-inline'><small>(<%= render_date movie.released_date %>)</small></h2>
                         </div>
                         <div class='clearfix-margin-5 <%= hide_content movie.genre %>'>
                           <h4 class='block-inline'>
