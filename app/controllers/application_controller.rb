@@ -22,11 +22,23 @@ class ApplicationController < ActionController::Base
   def valid_date_range(params)
     return if params[:start_date].blank? && params[:end_date].blank?
     if params[:start_date].blank? && params[:end_date].present?
-      message = 'Start date should not be blank'
+      'Start date should not be blank'
     elsif params[:start_date].present? && params[:end_date].blank?
-      message = 'End date should not be blank'
-    elsif params[:start_date].to_date > params[:end_date].to_date
-      message = 'End date should be after start date'
+      'End date should not be blank'
+    elsif valid_date_format?(params[:start_date]) && valid_date_format?(params[:end_date])
+      if params[:start_date].to_date > params[:end_date].to_date
+        'End date should be after start date'
+      end
+    else
+      'Please provide a valid date'
+    end
+  end
+
+  def valid_date_format?(date)
+    begin
+      date.to_date
+    rescue
+      return false
     end
   end
 
