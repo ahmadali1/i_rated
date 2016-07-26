@@ -25,10 +25,10 @@ module ApplicationHelper
 
   def alert_class_for(flash_type)
   {
-     :success => 'alert-success',
-     :error => 'alert-danger',
-     :alert => 'alert-warning',
-     :notice => 'alert-info'
+     success: 'alert-success',
+     error: 'alert-danger',
+     alert: 'alert-warning',
+     notice: 'alert-info'
      }[flash_type.to_sym] || flash_type.to_s
   end
 
@@ -41,7 +41,7 @@ module ApplicationHelper
   end
 
   def render_date(datetime)
-    datetime.strftime("%m-%d-%y")
+    datetime.strftime("%m-%d-%Y")
   end
 
   def hide_content(content)
