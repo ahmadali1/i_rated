@@ -26,7 +26,7 @@
 
       <div class='add-to-favourite margin-top-5'>
         <% unless FavouriteMovie.already_favourite?(current_user, @movie) %>
-          <%= link_to 'Add to Favourite', favourite_movie_movie_path(@movie, favourite: true), class: 'btn btn-xs btn-primary', id: 'favourite-btn', method: :post %>
+          <%= link_to 'Add to Favourite', favourite_movie_movie_path(@movie), class: 'btn btn-xs btn-primary', id: 'favourite-btn', method: :post %>
         <% else %>
           <h5 class="text-center"><strong>This is my favourite movie</strong></h5>
         <% end %>
