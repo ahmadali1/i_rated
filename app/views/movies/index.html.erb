@@ -18,12 +18,12 @@
                 <tr>
                   <td>
                     <div class='row'>
-                      <div class='col-md-3 col-sm-3 col-xs-3'>
+                      <div class='col-md-3 col-sm-3 col-xs-12'>
                         <%= link_to movie_path(movie) do %>
                           <%= image_tag fetch_thumbnail(movie.images.first, :med), class: 'index-images' %>
                         <% end %>
                       </div>
-                      <div class='col-md-7 col-sm-7 col-xs-7'>
+                      <div class='col-md-7 col-sm-7 col-xs-12'>
                         <div class='clearfix-margin-5 top-margin-2'>
                           <%= link_to movie_path(movie), class: 'link-class' do %>
                             <h2 class='block-inline'><%= movie.name %></h2>
@@ -38,7 +38,9 @@
                         </div>
                         <div id='storyline' class=<%= hide_content movie.description %>>
                           <h5 class='block-inline'><strong>Storyline :</strong></h5>
-                          <%= sanitize movie.description.to_s.slice(0..300)<<' .....' %>
+                          <p class='text-justify'>
+                            <%= truncate(sanitize(movie.description), length: 300) %>
+                          </p>
                         </div>
                       </div>
                       <div class='col-md-2'></div>
