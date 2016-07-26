@@ -20,7 +20,7 @@ module Api
           404
         end
         respond_to do |format|
-          format.json { render json: { movie: @movie}, status: status }
+          format.json { render json: { movie: @movie.movie_hash }, status: status }
         end
 
       end
@@ -28,7 +28,11 @@ module Api
       private
         def validate_date_range
           message = valid_date_range(params)
-          respond_with message.to_json if message
+          if message
+            respond_to do |format|
+              format.json { render json: { Error: message }, status: 400 }
+            end
+          end
         end
 
         def set_movie

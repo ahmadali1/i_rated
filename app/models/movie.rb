@@ -98,4 +98,12 @@ class Movie < ActiveRecord::Base
     self.search params[:search], default_conditions(params)
   end
 
+  def movie_hash
+    movie = self.attributes
+    movie[:actors] = self.actors
+    movie[:reviews] = self.reviews
+    movie[:ratings] = self.ratings
+    movie
+  end
+
 end
