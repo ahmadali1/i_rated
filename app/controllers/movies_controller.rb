@@ -4,28 +4,22 @@ class MoviesController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   before_action :already_favourite_movie, only: :favourite_movie
   before_action :validate_date_range, only: :index
-  # GET /movies
-  # GET /movies.json
+
   def index
     @movies = Movie.search_movie params
     @movies = @movies.page(params[:page]).per Movie::PAGINATE_PER
   end
 
-  # GET /movies/1
-  # GET /movies/1.json
   def show
     @reviews = @movie.reviews.includes(:user).latest
     @review = @movie.reviews.build
     @user_movie_rating = @movie.movie_ratings(current_user)
   end
 
-  # GET /movies/new
   def new
     @movie = Movie.new
   end
 
-  # POST /movies
-  # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
 
@@ -56,13 +50,11 @@ class MoviesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find_by_id(params[:id])
       redirect_to movies_path, flash: { error: 'Movie Not fount' } if @movie.blank?
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
       params.require(:movie).permit(:name, :released_date, :description, :duration, :embedded_video, :genre, actor_ids: [], images_attributes: [:id, :image, :_destroy])
     end
