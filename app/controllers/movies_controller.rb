@@ -1,13 +1,12 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :favourite_movie]
-  before_action :get_actors
+  before_action :get_actors, only: [:new, :create]
   before_action :authenticate_user!, except: [:show, :index]
   before_action :already_favourite_movie, only: :favourite_movie
   before_action :validate_date_range, only: :index
 
   def index
     @movies = Movie.search_movie params
-    @movies = @movies.page(params[:page]).per Movie::PAGINATE_PER
   end
 
   def show
@@ -35,7 +34,7 @@ class MoviesController < ApplicationController
   end
 
   def favourite_movie
-    if @movie.create_favourite(params, current_user)
+    if FavouriteMovie.create(movie: @movie, user: current_user)
       flash[:success] = 'This movie has been added to favourite movies'
     else
       flash[:error] = @movie.errors
@@ -52,7 +51,7 @@ class MoviesController < ApplicationController
   private
     def set_movie
       @movie = Movie.find_by_id(params[:id])
-      redirect_to movies_path, flash: { error: 'Movie Not fount' } if @movie.blank?
+      redirect_to movies_path, alert: 'Movie Not found' if @movie.blank?
     end
 
     def movie_params
@@ -68,7 +67,7 @@ class MoviesController < ApplicationController
 
     def validate_date_range
       message = valid_date_range(params)
-      redirect_to movies_path, flash: { error: message } if message
+      redirect_to movies_path, alert: message if message
     end
 
 end

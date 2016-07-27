@@ -1,7 +1,6 @@
 class Movie < ActiveRecord::Base
-
   include ThinkingSphinx::Scopes
-  PAGINATE_PER = 10
+
   FAVOURITE_PER = 8
   HOME_MOVIES_LIMIT = 4
   GENRE = ["Action", "Horror", "Romance", "Documentary", "Biography", "Comedy", "Crime", "Drama", "Romance", "War"]
@@ -25,31 +24,16 @@ class Movie < ActiveRecord::Base
   validates :genre, length: { maximum: 30 }
   validates :embedded_video, length: { maximum: 250 }
 
-  def all_movie_actors
-    return self.actors.collect(&:name).join(', ')
-  end
-
   def self.get_latest_movies
-    self.latest.approved.limit(HOME_MOVIES_LIMIT);
+    self.latest.approved.limit(HOME_MOVIES_LIMIT)
   end
 
   def self.get_featured_movies
     self.featured.approved.limit(HOME_MOVIES_LIMIT)
   end
 
-  def self.get_movies(movie_params)
-    movies = self.approved
-    return movies.featured if movie_params[:featured].present?
-    return movies.top if movie_params[:top].present?
-    return movies.latest
-  end
-
   def movie_ratings(user)
     self.ratings.where(user: user).first if user.present?
-  end
-
-  def available_ratings?(user)
-    self.ratings.where(user: user).exists? if user.present?
   end
 
   def average_rating
@@ -64,16 +48,6 @@ class Movie < ActiveRecord::Base
     self.images.first
   end
 
-  def create_favourite(params, user)
-    favourite = self.favourite_movies.new
-    favourite.user = user
-    favourite.save
-  end
-
-  def self.section_params(params)
-    params[:featured] || params[:latest] || params[:top]
-  end
-
   def self.valid_date?(params)
     params[:start_date].present? && params[:end_date].present?
   end
@@ -84,6 +58,8 @@ class Movie < ActiveRecord::Base
         conditions: {},
         with: {},
         order: 'released_date DESC',
+        page: params[:page],
+        per_page: 10,
       }
     default_conditions[:conditions][:genre] = params[:genre] if params[:genre].present?
     default_conditions[:conditions][:actor] = params[:actor] if params[:actor].present?
@@ -94,15 +70,14 @@ class Movie < ActiveRecord::Base
   end
 
   def self.search_movie(params)
-    return self.get_movies(params) if section_params(params)
     self.search params[:search], default_conditions(params)
   end
 
   def movie_hash
     movie = self.attributes
-    movie[:actors] = self.actors
-    movie[:reviews] = self.reviews
-    movie[:ratings] = self.ratings
+    movie[:actors] = self.actors.select(:id, :name, :gender, :country)
+    movie[:reviews] = self.reviews.select(:id, :user_id, :comment, :created_at, :report_count)
+    movie[:ratings] = self.ratings.select(:id, :score,:user_id, :created_at)
     movie
   end
 
