@@ -1,8 +1,12 @@
-<%= form_for([@movie, @review], remote: remote_form) do |f| %>
-  <div class="field">
-    <%= f.text_area :comment, class: 'form-control review_text_area', placeholder: 'write review here',required: true, maxlength: 2000 %>
-  </div>
-  <div class="actions">
-    <%= f.submit class: 'btn btn-default' %>
-  </div>
+<% if user_signed_in? %>
+  <%= form_for([@movie, @review], remote: remote_form) do |f| %>
+    <div class='field'>
+      <%= f.text_area :comment, class: 'form-control review_text_area', placeholder: 'Write review here', required: true, maxlength: 2000 %>
+    </div>
+    <div class='actions'>
+      <%= f.submit class: 'btn btn-default' %>
+    </div>
+  <% end %>
+<% else %>
+  <%= link_to 'Please login to write a review.', new_user_session_path %>
 <% end %>
