@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_filter :store_current_location, unless: :devise_controller?
 
   protected
 
@@ -16,30 +17,26 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    root_path
+    stored_location_for(resource) || root_path
   end
 
   def valid_date_range(params)
     return if params[:start_date].blank? && params[:end_date].blank?
-    if params[:start_date].blank? && params[:end_date].present?
-      'Start date should not be blank'
-    elsif params[:start_date].present? && params[:end_date].blank?
-      'End date should not be blank'
-    elsif valid_date_format?(params[:start_date]) && valid_date_format?(params[:end_date])
-      if params[:start_date].to_date > params[:end_date].to_date
-        'End date should be after start date'
-      end
-    else
+    if (params[:start_date].blank? && params[:end_date].present?) || (params[:start_date].present? && params[:end_date].blank?)
+      'Both dates should be present'
+    elsif !valid_date_format?(params[:start_date]) || !valid_date_format?(params[:end_date])
       'Please provide a valid date'
+    elsif params[:start_date].to_date > params[:end_date].to_date
+      'End date should be after start date'
     end
   end
 
   def valid_date_format?(date)
-    begin
-      date.to_date
-    rescue
-      return false
-    end
+    date.to_date rescue false
+  end
+
+  def store_current_location
+    store_location_for(:user, request.url)
   end
 
 end
