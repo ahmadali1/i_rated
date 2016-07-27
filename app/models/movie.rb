@@ -1,6 +1,7 @@
 class Movie < ActiveRecord::Base
   include ThinkingSphinx::Scopes
 
+  PAGINATE_PER = 10
   FAVOURITE_PER = 8
   HOME_MOVIES_LIMIT = 4
   GENRE = ["Action", "Horror", "Romance", "Documentary", "Biography", "Comedy", "Crime", "Drama", "Romance", "War"]
@@ -69,7 +70,20 @@ class Movie < ActiveRecord::Base
     return default_conditions
   end
 
+  def self.get_movies(movie_params)
+    movies = self.approved
+    movies = movies.featured if movie_params[:featured].present?
+    movies = movies.top if movie_params[:top].present?
+    movies = movies.latest if movie_params[:latest].present?
+    return movies.page(movie_params[:page]).per Movie::PAGINATE_PER
+  end
+
+  def self.section_params(params)
+    params[:featured] || params[:latest] || params[:top]
+  end
+
   def self.search_movie(params)
+    return self.get_movies(params) if section_params(params)
     self.search params[:search], default_conditions(params)
   end
 
