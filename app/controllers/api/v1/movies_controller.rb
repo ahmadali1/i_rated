@@ -7,7 +7,6 @@ module Api
 
       def index
         @movies = Movie.search_movie params
-        @movies = @movies.page(params[:page]).per Movie::PAGINATE_PER
         respond_to do |format|
           format.json { render json: {movies: @movies}, status: 200 }
         end
