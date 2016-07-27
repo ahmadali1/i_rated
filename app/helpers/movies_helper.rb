@@ -9,7 +9,7 @@ module MoviesHelper
   end
 
   def star_class(movie, current_user)
-    movie.available_ratings?(current_user) ? 'rating-star' : 'user-star'
+    movie.movie_ratings(current_user) ? 'rating-star' : 'user-star'
   end
 
   def rating_div
