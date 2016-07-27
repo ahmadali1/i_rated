@@ -21,11 +21,10 @@ class ReviewsController < ApplicationController
         format.html { redirect_to @movie, notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
         flash.now[:success] = 'Review was successfully created.'
-        format.js
       else
         flash.now[:error] = @review.errors.full_messages
-        format.js
       end
+      format.js
     end
   end
 
@@ -56,8 +55,7 @@ class ReviewsController < ApplicationController
 
     def validates_review_user
       if @review.user.id != current_user.id
-        flash[:errors] = 'Not Authorized'
-        return redirect_to @movie
+        return redirect_to @movie, alert: 'Not Authorized'
       end
     end
 
