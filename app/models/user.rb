@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :lockable, :timeoutable and :omniauthable
   TOKEN = "dXNlcm5hbWU6YXNkZmFzZGY="
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
@@ -16,10 +14,5 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true, length: { maximum: 60 }
 
   GENDERS = ["Male", "Female"]
-
-  def get_image
-    return self.image if self.image.present?
-    return self.build_image
-  end
 
 end
