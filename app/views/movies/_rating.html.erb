@@ -1,5 +1,5 @@
+<div id=movie-data data-overall-rating=<%= @movie.average_rating %> class='hidden' ></div>
 <% if user_signed_in? %>
-  <div id=movie-data data-overall-rating=<%= @movie.average_rating %> class='hidden' ></div>
   <%= rating_div %>
 <% else %>
   <%= link_to 'Login to rate', new_user_session_path %>
