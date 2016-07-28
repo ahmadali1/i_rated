@@ -71,7 +71,7 @@ class Movie < ActiveRecord::Base
   end
 
   def self.get_movies(movie_params)
-    movies = self.approved
+    movies = self.includes(:images).approved
     movies = movies.featured if movie_params[:featured].present?
     movies = movies.top if movie_params[:top].present?
     movies = movies.latest if movie_params[:latest].present?
