@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   TOKEN = "dXNlcm5hbWU6YXNkZmFzZGY="
+  GENDERS = ["Male", "Female"]
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
@@ -12,7 +13,5 @@ class User < ActiveRecord::Base
 
   validates :first_name, presence: true, length: { maximum: 60 }
   validates :last_name, presence: true, length: { maximum: 60 }
-
-  GENDERS = ["Male", "Female"]
-
+  validates :gender, inclusion: { in: GENDERS, if: 'gender.present?' }
 end
