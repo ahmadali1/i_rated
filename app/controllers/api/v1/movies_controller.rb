@@ -39,9 +39,7 @@ module Api
         end
 
         def authenticate_request
-          if request && request.headers && request.headers['Authorization']
-            return if request.headers['Authorization'] == User::TOKEN
-          end
+          return if request.headers['Authorization'] && request.headers['Authorization'] == User::TOKEN
           head :unauthorized
         end
 

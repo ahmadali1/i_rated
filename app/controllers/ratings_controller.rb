@@ -11,11 +11,10 @@ class RatingsController < ApplicationController
       if @rating.save
         set_user_ratings
         flash.now[:success] = "Rating successfully created"
-        format.js
       else
         flash.now[:error] = @ratings.errors
-        format.js
       end
+      format.js
     end
   end
 
@@ -24,11 +23,10 @@ class RatingsController < ApplicationController
       if @rating.update_attribute(:score, rating_params[:score])
         set_user_ratings
         flash.now[:success] = "Rating successfully updated"
-        format.js
       else
         flash.now[:error] = "Rating is not updated due to an error"
-        format.js
       end
+      format.js
     end
   end
 

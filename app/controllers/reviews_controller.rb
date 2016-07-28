@@ -54,7 +54,7 @@ class ReviewsController < ApplicationController
     end
 
     def validates_review_user
-      if @review.user.id != current_user.id
+      unless @review.user.id == current_user.id
         return redirect_to @movie, alert: 'Not Authorized'
       end
     end
