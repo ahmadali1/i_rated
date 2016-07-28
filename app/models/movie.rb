@@ -87,8 +87,10 @@ class Movie < ActiveRecord::Base
     self.search params[:search], default_conditions(params)
   end
 
-  def movie_hash
+  def movie_hash(base_url)
     movie = self.attributes
+    movie_posters = []
+    movie[:posters] = self.images.collect { |attachment| [base_url, attachment.image.url(:large)].join }
     movie[:actors] = self.actors.select(:id, :name, :gender, :country)
     movie[:reviews] = self.reviews.select(:id, :user_id, :comment, :created_at, :report_count)
     movie[:ratings] = self.ratings.select(:id, :score,:user_id, :created_at)

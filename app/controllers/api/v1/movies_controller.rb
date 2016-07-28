@@ -18,8 +18,9 @@ module Api
         else
           404
         end
+
         respond_to do |format|
-          format.json { render json: { movie: @movie.movie_hash }, status: status }
+          format.json { render json: { movie: @movie.movie_hash(request.env['HTTP_HOST']) }, status: status }
         end
 
       end
