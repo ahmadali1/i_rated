@@ -133,3 +133,11 @@ hr {
 .top-margin-6 {
   margin-top: 6%;
 }
+
+.font-large-xx {
+  font-size: xx-large;
+}
+
+.initial-font-size {
+  font-size: initial;
+}

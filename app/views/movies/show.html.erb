@@ -43,7 +43,7 @@
               <strong>Genre:</strong>
             </td>
             <td>
-              <%= @movie.genre %>
+              <h2 class='block-inline initial-font-size'><%= @movie.genre %></h2>
             </td>
           </tr>
           <tr>
@@ -51,7 +51,7 @@
               <strong>Release Date:</strong>
             </td>
             <td>
-              <%= render_date @movie.released_date %>
+              <h2 class='block-inline initial-font-size'><%= render_date @movie.released_date %></h2>
             </td>
           </tr>
           <tr class=<%= hide_content @movie.duration %>>
@@ -67,7 +67,7 @@
               <strong>Actors:</strong>
             </td>
             <td>
-              <%= @movie.movie_cast.titleize %>
+              <h2 class='block-inline initial-font-size'><%= @movie.movie_cast.titleize %></h2>
             </td>
           </tr>
           <tr>
@@ -107,13 +107,13 @@
       <p class='movie-font text-justify'><%= raw @movie.description.capitalize %></p>
     </div>
     <div class='col-md-7 <%= hide_content @movie.embedded_video %>'>
-      <h2>Trailer</h2>
+      <h3>Trailer</h3>
       <%= raw @movie.embedded_video %>
     </div>
   </div>
   <div class="col-md-12">
-    <h2>Reviews</h2>
-    <h3>Write a review</h3>
+    <h3>Reviews</h3>
+    <h4>Write a review</h4>
     <div class="review_alerts hidden">
       <%= render 'layouts/flash_messages' %>
     </div>
