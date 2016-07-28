@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728065539) do
+ActiveRecord::Schema.define(version: 20160728070019) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(version: 20160728065539) do
   create_table "reviews", force: :cascade do |t|
     t.integer  "movie_id",     limit: 4
     t.integer  "user_id",      limit: 4
-    t.text     "comment",      limit: 65535
+    t.text     "comment",      limit: 65535,             null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.integer  "report_count", limit: 4,     default: 0
