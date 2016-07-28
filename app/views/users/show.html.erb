@@ -19,7 +19,7 @@
                       <strong>First Name:</strong>
                     </td>
                     <td>
-                      <%= current_user.first_name %>
+                      <%= current_user.first_name.titleize %>
                     </td>
                   </tr>
                   <tr>
@@ -27,7 +27,7 @@
                       <strong>Last Name:</strong>
                     </td>
                     <td>
-                      <%= current_user.last_name %>
+                      <%= current_user.last_name.titleize %>
                     </td>
                   </tr>
                   <tr>
@@ -80,7 +80,7 @@
                           <div class='col-md-7 col-sm-7 col-xs-12'>
                             <div class='clearfix-margin-5 top-margin-2'>
                               <%= link_to movie_path(favourite.movie), class: 'link-class' do %>
-                                <h2 class='block-inline'><%= favourite.movie.name %></h2>
+                                <h2 class='block-inline'><%= favourite.movie.name.titleize %></h2>
                               <% end %>
                               <h2 class='block-inline'><small>(<%= render_date favourite.movie.released_date %>)</small></h2>
                             </div>
@@ -91,7 +91,7 @@
                             </div>
                             <div id='storyline' class=<%= hide_content favourite.movie.description %>>
                               <h5 class='block-inline'><strong>Storyline :</strong></h5>
-                              <%= truncate(sanitize(favourite.movie.description), length: 100) %>
+                              <%= truncate(sanitize(favourite.movie.description.capitalize), length: 100) %>
                             </div>
                           </div>
                         </div>
