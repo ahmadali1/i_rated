@@ -6,10 +6,12 @@ class MoviesController < ApplicationController
   before_action :validate_date_range, only: :index
 
   def index
+    @title = 'All Movies'
     @movies = Movie.search_movie params
   end
 
   def show
+    @title = @movie.name
     @reviews = @movie.reviews.includes(:user).latest
     @review = @movie.reviews.build
     @user_movie_rating = @movie.movie_ratings(current_user)

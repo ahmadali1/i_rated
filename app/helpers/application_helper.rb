@@ -48,4 +48,14 @@ module ApplicationHelper
     'hidden' if content.blank?
   end
 
+  def render_title
+    @title || devise_titles || 'I Rated'
+  end
+
+  def devise_titles
+    return 'Sign Up' if params[:controller] == 'devise/registrations' && params[:action] == 'new'
+    return 'Edit Profile' if params[:controller] == 'devise/registrations' && params[:action] == 'edit'
+    return 'Login' if params[:controller] == 'devise/sessions'
+  end
+
 end
