@@ -25,7 +25,7 @@ ActiveAdmin.register User do
       f.input :last_name
       f.input :email
       f.input :password
-      f.input :gender
+      f.input :gender, as: :select, collection: User::GENDERS
     end
     f.actions
   end

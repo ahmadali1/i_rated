@@ -9,4 +9,15 @@ ActiveAdmin.register Actor do
   filter :gender
   filter :date_of_birth
 
+  form do |f|
+    f.inputs do
+      f.input :name
+      f.input :age
+      f.input :country
+      f.input :gender, as: :select, collection: User::GENDERS
+      f.input :date_of_birth
+    end
+    f.actions
+  end
+
 end
