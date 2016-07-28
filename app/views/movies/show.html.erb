@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class='col-md-4 col-sm-8 col-md-offset-1'>
-      <h1><strong><%= @movie.name %></strong></h1>
+      <h1><strong><%= @movie.name.titleize %></strong></h1>
       <table class="table table-condensed">
         <tbody>
           <tr class=<%= hide_content @movie.genre %>>
@@ -67,7 +67,7 @@
               <strong>Actors:</strong>
             </td>
             <td>
-              <%= @movie.movie_cast %>
+              <%= @movie.movie_cast.titleize %>
             </td>
           </tr>
           <tr>
@@ -104,7 +104,7 @@
   <div class='row'>
     <div class='col-md-5 <%= hide_content @movie.description %>'>
       <h3>Description</h3>
-      <p class='movie-font text-justify'><%= raw @movie.description %></p>
+      <p class='movie-font text-justify'><%= raw @movie.description.capitalize %></p>
     </div>
     <div class='col-md-7 <%= hide_content @movie.embedded_video %>'>
       <h2>Trailer</h2>

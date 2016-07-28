@@ -1,6 +1,6 @@
 <hr>
-<h4><strong><%= review.get_username %></strong></h4>
-<h5><%= review.comment %></h5>
+<h4><strong><%= review.get_username.titleize %></strong></h4>
+<h5><%= review.comment.capitalize %></h5>
 <p><%= render_time review.created_at %></p>
 <% if user_signed_in? %>
   <% if review.user == current_user %>

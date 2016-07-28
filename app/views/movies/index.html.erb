@@ -26,7 +26,7 @@
                       <div class='col-md-7 col-sm-7 col-xs-12'>
                         <div class='clearfix-margin-5 top-margin-2'>
                           <%= link_to movie_path(movie), class: 'link-class' do %>
-                            <h2 class='block-inline'><%= movie.name %></h2>
+                            <h2 class='block-inline'><%= movie.name.titleize %></h2>
                           <% end %>
                           <h2 class='block-inline'><small>(<%= render_date movie.released_date %>)</small></h2>
                         </div>
@@ -39,7 +39,7 @@
                         <div id='storyline' class=<%= hide_content movie.description %>>
                           <h5 class='block-inline'><strong>Storyline :</strong></h5>
                           <p class='text-justify'>
-                            <%= truncate(sanitize(movie.description), length: 300) %>
+                            <%= truncate(sanitize(movie.description.capitalize), length: 300) %>
                           </p>
                         </div>
                       </div>
