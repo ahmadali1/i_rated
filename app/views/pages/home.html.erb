@@ -33,9 +33,9 @@
         <%= image_tag fetch_thumbnail(movie.images.first, :large), class: 'img-responsive' %>
       <% end %>
       <p class='text-center movie-font'>
-        <strong><%= movie.name %></strong>
+        <strong><%= movie.name.titleize %></strong>
       </p>
-      <p class='text-center movie-font'>Released Date :<%= movie.released_date %></p>
+      <p class='text-center movie-font'>Released Date : <%= movie.released_date %></p>
     </div>
   <% end %>
 </div>
@@ -51,7 +51,7 @@
         <%= image_tag fetch_thumbnail(movie.images.first, :large), class: 'img-responsive' %>
       <% end %>
       <p class='text-center movie-font'>
-        <strong><%= movie.name %></strong>
+        <strong><%= movie.name.titleize %></strong>
       </p>
       <p class='text-center movie-font'>Released Date :<%= movie.released_date %></p>
     </div>
@@ -70,7 +70,7 @@
         <%= image_tag fetch_thumbnail(movie.images.first, :large), class: 'img-responsive' %>
       <% end %>
       <p class='text-center movie-font'>
-        <strong><%= movie.name %></strong>
+        <strong><%= movie.name.titleize %></strong>
       </p>
       <p class='text-center movie-font'>Released Date :<%= movie.released_date %></p>
     </div>
