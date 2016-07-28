@@ -2,7 +2,6 @@ class Actor < ActiveRecord::Base
 
   has_many :movie_casts, dependent: :destroy
   has_many :movies, through: :movie_casts
-  has_one :image, as: :imageable
 
   validates :name, presence: true, length: { maximum: 60 }
   validates :country, length: { maximum: 20 }
