@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: i_rated_production
-  username: i_rated
-  password: <%= ENV['I_RATED_DATABASE_PASSWORD'] %>
+  username: root
+  password:
