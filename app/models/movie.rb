@@ -17,7 +17,7 @@ class Movie < ActiveRecord::Base
   scope :latest, -> { order(released_date: :desc) }
   scope :featured, -> { where(is_featured: true).latest }
   scope :approved, -> { where(approved: true) }
-  scope :top, -> { joins(:ratings).group('movie_id').order('AVG(ratings.score) DESC') }
+  scope :top, -> { joins(:ratings).group('movies.id').order('AVG(ratings.score) DESC') }
 
   validates :name, presence: true, length: { maximum: 60 }
   validates :released_date, presence: true
