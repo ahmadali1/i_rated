@@ -33,7 +33,7 @@ ActiveAdmin.register Movie do
     attributes_table do
       row :name
       row :description
-      row :embeded_url
+      row :embedded_video
       row :featured
       row :genre
       row :approved
