@@ -10,7 +10,7 @@
           </div>
           <% @movie.images.each do |image| %>
             <div class='item'>
-              <%= image_tag show_image(image) %>
+              <%= image_tag show_image(image, :large) %>
             </div>
           <% end %>
         </div>
@@ -67,7 +67,7 @@
               <strong>Actors:</strong>
             </td>
             <td>
-              <h2 class='block-inline initial-font-size'><%= @movie.movie_cast.titleize %></h2>
+              <h2 class='block-inline initial-font-size'><%= raw @movie.actors.collect { |actor| link_to actor.name.titleize, actor }.join(", ") %></h2>
             </td>
           </tr>
           <tr>
@@ -123,7 +123,9 @@
     </div>
   </div>
 </div>
+<%= render 'image_modal' %>
 
 <% content_for :js_init do %>
   StarRating.init();
+  ImageModal.init();
 <% end %>
