@@ -141,3 +141,7 @@ hr {
 .initial-font-size {
   font-size: initial;
 }
+
+.item:hover {
+    cursor: pointer;
+}
