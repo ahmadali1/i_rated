@@ -16,4 +16,10 @@ module MoviesHelper
     content_tag(:div, "", id: star_class(@movie, current_user), data: {movie_id: @movie.id, overall_rating: @movie.average_rating, movie_ratings: @user_movie_rating.try(:score), rating_id: @user_movie_rating.try(:id)})
   end
 
+  def sortable_link(column, direction)
+    title ||= column.titleize
+    glyphicon = direction == 'asc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'
+    link_to raw("<span class='#{glyphicon}'></span> #{title}"), movies_path(sort: column, direction: direction), class: 'btn btn-default btn-sm pull-right'
+  end
+
 end

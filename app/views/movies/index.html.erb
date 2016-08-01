@@ -10,6 +10,14 @@
           <div class='clearfix'></div>
           <table class='table table-striped table-hover'>
             <thead class='thead-default'>
+              <tr>
+                <td>
+                <%= sortable_link('released_date', 'asc') %>
+                <%= sortable_link('released_date', 'desc') %>
+                <%= sortable_link('ratings', 'asc') %>
+                <%= sortable_link('ratings', 'desc') %>
+                </td>
+              </tr>
             </thead>
 
             <tbody>

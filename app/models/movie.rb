@@ -17,7 +17,7 @@ class Movie < ActiveRecord::Base
   scope :latest, -> { order(released_date: :desc) }
   scope :featured, -> { where(is_featured: true).latest }
   scope :approved, -> { where(approved: true) }
-  scope :top, -> { joins(:ratings).group('movie_id').order('AVG(ratings.score) DESC') }
+  scope :top, -> (direction = 'DESC') { joins(:ratings).group('movie_id').order('AVG(ratings.score) ' + direction) }
 
   validates :name, presence: true, length: { maximum: 60 }
   validates :released_date, presence: true
@@ -75,11 +75,13 @@ class Movie < ActiveRecord::Base
     movies = movies.featured if movie_params[:featured].present?
     movies = movies.top if movie_params[:top].present?
     movies = movies.latest if movie_params[:latest].present?
+    movies = movies.order(movie_params[:sort] + ' ' + movie_params[:direction]) if movie_params[:direction].present? && movie_params[:sort] == 'released_date'
+    movies = movies.top(movie_params[:direction]) if movie_params[:direction].present? && movie_params[:sort] == 'ratings'
     return movies.page(movie_params[:page]).per Movie::PAGINATE_PER
   end
 
   def self.section_params(params)
-    params[:featured] || params[:latest] || params[:top]
+    params[:featured] || params[:latest] || params[:top] || params[:sort] || params[:direction]
   end
 
   def self.search_movie(params)
