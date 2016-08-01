@@ -1,6 +1,6 @@
 ActiveAdmin.register Actor do
 
-  permit_params :name, :age, :country, :gender, :date_of_birth, images_attributes: [:id, :image, :_destroy]
+  permit_params :name, :age, :country, :gender, :date_of_birth, :biography, images_attributes: [:id, :image, :_destroy]
 
   filter :movie
   filter :name
@@ -16,6 +16,7 @@ ActiveAdmin.register Actor do
       f.input :country
       f.input :gender, as: :select, collection: User::GENDERS
       f.input :date_of_birth
+      f.input :biography
       f.has_many :images, heading: 'Images', new_record: 'Add Image' do |attachment|
         attachment.input :image, hint: attachment.template.image_tag(attachment_image attachment), allow_destroy: true
         attachment.input :_destroy, as: :boolean, required: :false, label: 'Remove Image'
@@ -45,6 +46,7 @@ ActiveAdmin.register Actor do
       row :age
       row :gender
       row :date_of_birth
+      row :biography
       row "Images" do |movie|
         div do
           movie.images.each do |attachment|
