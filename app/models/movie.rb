@@ -87,7 +87,7 @@ class Movie < ActiveRecord::Base
 
   def self.search_movie(params)
     return self.get_movies(params) if section_params(params)
-    self.search params[:search], default_conditions(params)
+    self.search searilze_string(params[:search]), default_conditions(params)
   end
 
   def movie_hash(base_url)
@@ -98,6 +98,10 @@ class Movie < ActiveRecord::Base
     movie[:reviews] = self.reviews.select(:id, :user_id, :comment, :created_at, :report_count)
     movie[:ratings] = self.ratings.select(:id, :score,:user_id, :created_at)
     movie
+  end
+
+  def self.searilze_string(string)
+    string.gsub(/[^0-9A-Za-z ]/, '') if string
   end
 
 end
