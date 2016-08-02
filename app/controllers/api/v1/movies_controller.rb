@@ -4,6 +4,7 @@ module Api
       before_action :validate_date_range, only: :index
       before_action :set_movie, only: :show
       before_action :authenticate_request
+      before_action :varify_approval, only: :show
       respond_to :json
 
       def index
@@ -31,6 +32,11 @@ module Api
         def authenticate_request
           return if request.headers['Authorization'] && request.headers['Authorization'] == User::TOKEN
           head :unauthorized
+        end
+
+        def varify_approval
+          message = varify_movie_approval(@movie)
+          render json: { error: message }, status: 404 if message
         end
 
     end

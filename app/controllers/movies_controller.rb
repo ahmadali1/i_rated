@@ -4,6 +4,7 @@ class MoviesController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   before_action :already_favourite_movie, only: :favourite_movie
   before_action :validate_date_range, only: :index
+  before_action :varify_approval, only: [:show, :favourite_movie]
 
   def index
     @title = 'All Movies'
@@ -69,6 +70,11 @@ class MoviesController < ApplicationController
 
     def validate_date_range
       message = valid_date_range(params)
+      redirect_to movies_path, alert: message if message
+    end
+
+    def varify_approval
+      message = varify_movie_approval(@movie)
       redirect_to movies_path, alert: message if message
     end
 

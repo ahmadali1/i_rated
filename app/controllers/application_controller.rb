@@ -37,4 +37,8 @@ class ApplicationController < ActionController::Base
     store_location_for(:user, request.url)
   end
 
+  def varify_movie_approval(movie)
+    'This operation can not be performed without admin approval' unless movie.approved?
+  end
+
 end
